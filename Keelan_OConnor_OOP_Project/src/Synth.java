@@ -12,14 +12,13 @@ import java.util.concurrent.Flow;
 //TODO Define rules music must follow
 //TODO Read/Write music function
 //TODO Learn how to use Channels
+//TODO Screen size for GUI.width and height
 
 
 public class Synth {
     public static void main(String[] args) {
 
-        //TODO Screen size for GUI.width and height
-
-        //Collapsed GUI to clean up code
+        // Collapsed GUI to clean up code
 //<editor-fold desc="GUI">
         //GUI Setup
         JFrame frame1 = new JFrame("Synthesizer");
@@ -74,8 +73,13 @@ public class Synth {
                 count++;
                // System.out.println(count); //Should be 234 instruments
             }//End for
+            //TODO call load instrument method on botton click
+            //Loading an instrument from allInstruments array at given index
+            synthesizer1.loadInstrument(allInstruments[185]);
+            //Unload instrument
+            //Get loaded Instrument
+            //final Instrument[] loadedInstruments = synthesizer1.getLoadedInstruments();
 
-            //Soundbank getDefaultSoundbank();
         }//End try
 
         //Catch exceptions for unavailable sequencer and synthesizer
