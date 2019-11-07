@@ -2,6 +2,7 @@ import javax.sound.midi.*;
 import javax.sound.midi.Synthesizer;
 import javax.swing.*;
 import java.awt.*;
+import java.util.concurrent.Flow;
 
 //TODO Implement proper inheritance
 //TODO Write base features of driver
@@ -16,41 +17,62 @@ public class Synth {
 
         //TODO Screen size for GUI.width and height
 
-        //TODO make nicer GUI with flow layout
         //GUI Setup
         JFrame frame1 = new JFrame("Synthesizer");
-        frame1.setBounds(400,250,400,400); //Location + position of GUI
-
+        frame1.setBounds(400, 250, 400, 400); //Location + position of GUI
         JPanel panel1 = new JPanel();
+        panel1.setBackground(Color.gray);
         JLabel label1 = new JLabel("Label");
-        JTextArea textArea1 = new JTextArea();
-        textArea1.setBounds(1,1,200,200);//TODO Make this work
-        textArea1.setText("This is a text area\nssssss\n\n\n\n\n\naaaaa"); //TODO Make this work
-        textArea1.setEditable(false);
-
+        JTextPane textPane1 = new JTextPane();
+        textPane1.setBounds(1, 1, 200, 200);//TODO Make this work
+        textPane1.setText("This is a text area\n\n\n\n\n\n\n____________"); //TODO Make this work
+        textPane1.setEditable(false);
+        FlowLayout layout = new FlowLayout();
+        textPane1.setLayout(layout);
         JButton button1 = new JButton("Play");
+        frame1.add(label1);
         panel1.add(button1);
         frame1.add(panel1);
+        frame1.add(textPane1);
         frame1.setDefaultCloseOperation(frame1.EXIT_ON_CLOSE);
-        frame1.setLayout(new FlowLayout());//TODO Make this work
-
+        frame1.setLayout(layout);
         frame1.setVisible(true);
-
         //Declaring a sequencer and synthesizer
         Sequencer sequencer1;
         Synthesizer synthesizer1;
+        MidiChannel[] midiChannel1;
+        Instrument[] instruments1;
 
         //Attempt to set sequencer and synthesizer
         try{
             sequencer1 = MidiSystem.getSequencer();
             synthesizer1 = MidiSystem.getSynthesizer();
             synthesizer1.open(); //TODO make this always open
-            System.out.println("Tried successfully");
-        }//End try
+            System.out.println("Tried successfully.");
 
+            //The channel is used to create sound
+            midiChannel1 = synthesizer1.getChannels();
+
+            //Instruments store a sound which can be shifted in pitch
+            //instruments1 = synthesizer1.getDefaultSoundbank().getInstruments();
+            Instrument[] allInstruments = synthesizer1.getAvailableInstruments();
+
+            int count = 0;
+            //Loop through all available instruments
+            for(int i = 0; i<allInstruments.length; i++){
+                System.out.println(allInstruments[i]); //TODO: Select option to display all instruments, display on GUI
+                count++;
+                System.out.println(count); //Should be 234 instruments
+            }//End for
+            
+            //System.out.println(allInstruments.toString() );
+            //Instrument[] getAvailableInstruments();
+            //Soundbank getDefaultSoundbank();
+        }//End try
 
         //Catch exceptions for unavailable sequencer and synthesizer
         catch(MidiUnavailableException e){
+            System.out.println("Catch triggered.");
         }//End catch
 
     }//End main
