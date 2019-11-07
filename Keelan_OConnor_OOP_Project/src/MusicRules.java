@@ -1,6 +1,8 @@
 public class MusicRules {
     //Need to keep track of what rules my program will work around, might delete if unnecessary.
 
+    // "Synthesizer generates sound when its MidiChannels receive noteOn messages."
+
     //Tempo: Speed of the song
     //Key: Determines the "Range of Notes" that can be played
     //Chords: Determined by key, made of 3 notes

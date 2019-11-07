@@ -11,13 +11,17 @@ import java.util.concurrent.Flow;
 //TODO Music generation function
 //TODO Define rules music must follow
 //TODO Read/Write music function
-//TODO Learn how to use Channels
 //TODO Screen size for GUI.width and height
+//TODO Learn how to use Channels + Also remove redundant code
+
+
 
 
 public class Synth {
     public static void main(String[] args) {
 
+        int velocity = 50;
+        int sound = 50;
         // Collapsed GUI to clean up code
 //<editor-fold desc="GUI">
         //GUI Setup
@@ -50,7 +54,7 @@ public class Synth {
         //Declaring a sequencer and synthesizer
         Sequencer sequencer1;
         Synthesizer synthesizer1;
-        MidiChannel[] midiChannel1;
+        MidiChannel midiChannel1 = null;
         Instrument[] instruments1;
 
         //Attempt to set sequencer and synthesizer
@@ -61,24 +65,23 @@ public class Synth {
             System.out.println("Tried successfully.");
 
             //The channel is used to create sound
-            midiChannel1 = synthesizer1.getChannels();
+            midiChannel1 = synthesizer1.getChannels()[15]; //Max 16?
 
             //Instruments store a sound which can be shifted in pitch
             Instrument[] allInstruments = synthesizer1.getAvailableInstruments();
 
+//<editor-fold desc="DebugLoops">
             int count = 0;
             //Loop through all available instruments
             for(int i = 0; i<allInstruments.length; i++){
-                System.out.println(allInstruments[i]); //TODO: Select option to display all instruments, display on GUI
+                //System.out.println(allInstruments[i]); //TODO: Select option to display all instruments, display on GUI
                 count++;
-               // System.out.println(count); //Should be 234 instruments
+               // System.out.println(count); //Should be 230~ instruments
             }//End for
-            //TODO call load instrument method on botton click
+
             //Loading an instrument from allInstruments array at given index
-            synthesizer1.loadInstrument(allInstruments[185]);
-            //Unload instrument
-            //Get loaded Instrument
-            //final Instrument[] loadedInstruments = synthesizer1.getLoadedInstruments();
+
+//</editor-fold>
 
         }//End try
 
@@ -87,15 +90,15 @@ public class Synth {
             System.out.println("Catch triggered.");
         }//End catch
 
-        //void noteOn(int noteNumber, int velocity)
-
-        //TODO void noteOn(int noteNumber,
-        //          int velocity)
-        //Starts the specified note sounding. The key-down velocity usually controls the note's volume and/or brightness.
-        //If velocity is zero, this method instead acts like noteOff(int), terminating the note.
-        //Parameters:
-        //noteNumber - the MIDI note number, from 0 to 127 (60 = Middle C)
-        //velocity - the speed with which the key was depressed
+        for(int i = 0; i<200; i++){
+            try {
+                Thread.sleep(100);
+                midiChannel1.noteOn(sound + i,velocity);
+                System.out.println("Note should play");
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }//End for
 
     }//End main
 }//End Synth
