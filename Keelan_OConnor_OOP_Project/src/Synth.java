@@ -2,6 +2,8 @@ import javax.sound.midi.*;
 import javax.sound.midi.Synthesizer;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.concurrent.Flow;
 
 //TODO Implement proper inheritance
@@ -17,6 +19,8 @@ public class Synth {
 
         //TODO Screen size for GUI.width and height
 
+        //Collapsed GUI to clean up code
+//<editor-fold desc="GUI">
         //GUI Setup
         JFrame frame1 = new JFrame("Synthesizer");
         frame1.setBounds(400, 250, 400, 400); //Location + position of GUI
@@ -32,11 +36,18 @@ public class Synth {
         JButton button1 = new JButton("Play");
         frame1.add(label1);
         panel1.add(button1);
+
+        //Auto generated lambda from action listener
+        button1.addActionListener(e -> System.out.println("Button pressed.")
+        );
+
         frame1.add(panel1);
         frame1.add(textPane1);
         frame1.setDefaultCloseOperation(frame1.EXIT_ON_CLOSE);
         frame1.setLayout(layout);
         frame1.setVisible(true);
+        //</editor-fold>
+
         //Declaring a sequencer and synthesizer
         Sequencer sequencer1;
         Synthesizer synthesizer1;
@@ -54,7 +65,6 @@ public class Synth {
             midiChannel1 = synthesizer1.getChannels();
 
             //Instruments store a sound which can be shifted in pitch
-            //instruments1 = synthesizer1.getDefaultSoundbank().getInstruments();
             Instrument[] allInstruments = synthesizer1.getAvailableInstruments();
 
             int count = 0;
@@ -62,11 +72,9 @@ public class Synth {
             for(int i = 0; i<allInstruments.length; i++){
                 System.out.println(allInstruments[i]); //TODO: Select option to display all instruments, display on GUI
                 count++;
-                System.out.println(count); //Should be 234 instruments
+               // System.out.println(count); //Should be 234 instruments
             }//End for
-            
-            //System.out.println(allInstruments.toString() );
-            //Instrument[] getAvailableInstruments();
+
             //Soundbank getDefaultSoundbank();
         }//End try
 
@@ -74,7 +82,5 @@ public class Synth {
         catch(MidiUnavailableException e){
             System.out.println("Catch triggered.");
         }//End catch
-
     }//End main
-
 }//End Synth
