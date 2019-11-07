@@ -14,7 +14,8 @@ import java.util.concurrent.Flow;
 //TODO Screen size for GUI.width and height
 //TODO Learn how to use Channels + Also remove redundant code
 
-
+//TODO NB: ASSIGN 12 NOTES TO A SCALE
+//TODO Use Markov Chain to let program know correct notes to play sequentially
 
 
 public class Synth {
@@ -22,6 +23,7 @@ public class Synth {
 
         int velocity = 50;
         int sound = 50;
+
         // Collapsed GUI to clean up code
 //<editor-fold desc="GUI">
         //GUI Setup
@@ -90,11 +92,13 @@ public class Synth {
             System.out.println("Catch triggered.");
         }//End catch
 
+        //Loop to alter pitch of a note over time for debugging
         for(int i = 0; i<200; i++){
             try {
                 Thread.sleep(100);
+                //   (noteNumber = note pitch 0-127, velocity = volume/brightness)
                 midiChannel1.noteOn(sound + i,velocity);
-                System.out.println("Note should play");
+                //System.out.println("Note should play");
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
