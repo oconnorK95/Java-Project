@@ -86,5 +86,16 @@ public class Synth {
         catch(MidiUnavailableException e){
             System.out.println("Catch triggered.");
         }//End catch
+
+        //void noteOn(int noteNumber, int velocity)
+
+        //TODO void noteOn(int noteNumber,
+        //          int velocity)
+        //Starts the specified note sounding. The key-down velocity usually controls the note's volume and/or brightness.
+        //If velocity is zero, this method instead acts like noteOff(int), terminating the note.
+        //Parameters:
+        //noteNumber - the MIDI note number, from 0 to 127 (60 = Middle C)
+        //velocity - the speed with which the key was depressed
+
     }//End main
 }//End Synth
