@@ -14,7 +14,7 @@ import java.util.concurrent.Flow;
 //TODO Screen size for GUI.width and height
 //TODO Learn how to use Channels + Also remove redundant code
 
-//TODO NB: ASSIGN 12 NOTES TO A SCALE
+//TODO NB: ASSIGN X NOTES TO A SCALE
 //TODO Use Markov Chain to let program know correct notes to play sequentially
 
 //public void blahblah(int[]){}  //Take in key[] as variable
@@ -22,9 +22,10 @@ import java.util.concurrent.Flow;
 public class Synth {
     public static void main(String[] args) {
 
-        int velocity = 50;
-        int sound = 50;
+        int velocity = 50; //The speed the note is played at, low is soft high is hard
+        int sound = 50; //Sound is the value of the note played, 50 is D
         // Collapsed GUI to clean up code
+
 //<editor-fold desc="GUI">
         //GUI Setup
         JFrame frame1 = new JFrame("Synthesizer");
@@ -55,7 +56,7 @@ public class Synth {
         //</editor-fold>
 
         //Declaring a sequencer and synthesizer
-        Sequencer sequencer1;
+        Sequencer sequencer1; //TODO Use sequencer for something
         Synthesizer synthesizer1;
         MidiChannel midiChannel1 = null;
         Instrument[] instruments1;
