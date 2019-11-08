@@ -17,13 +17,13 @@ import java.util.concurrent.Flow;
 //TODO NB: ASSIGN 12 NOTES TO A SCALE
 //TODO Use Markov Chain to let program know correct notes to play sequentially
 
+//public void blahblah(int[]){}  //Take in key[] as variable
 
 public class Synth {
     public static void main(String[] args) {
 
         int velocity = 50;
         int sound = 50;
-
         // Collapsed GUI to clean up code
 //<editor-fold desc="GUI">
         //GUI Setup
@@ -33,18 +33,19 @@ public class Synth {
         panel1.setBackground(Color.gray);
         JLabel label1 = new JLabel("Label");
         JTextPane textPane1 = new JTextPane();
-        textPane1.setBounds(1, 1, 200, 200);//TODO Make this work
-        textPane1.setText("This is a text area\n\n\n\n\n\n\n____________"); //TODO Make this work
+        textPane1.setBounds(1, 1, 200, 200);
+        textPane1.setText("This is a text area\n\n\n\n\n\n\n____________");
         textPane1.setEditable(false);
         FlowLayout layout = new FlowLayout();
         textPane1.setLayout(layout);
-        JButton button1 = new JButton("Play");
+        JButton button1 = new JButton("Test");
         frame1.add(label1);
         panel1.add(button1);
 
         //Auto generated lambda from action listener
         button1.addActionListener(e -> System.out.println("Button pressed.")
         );
+
 
         frame1.add(panel1);
         frame1.add(textPane1);
@@ -58,6 +59,9 @@ public class Synth {
         Synthesizer synthesizer1;
         MidiChannel midiChannel1 = null;
         Instrument[] instruments1;
+        int[] cMajor = new int[] {60,62,64,67,69,71,72}; //midiChannel needs to read this in
+
+       //Method to take in array of ints, key, and assign alpha values to them
 
         //Attempt to set sequencer and synthesizer
         try{
@@ -72,6 +76,8 @@ public class Synth {
             //Instruments store a sound which can be shifted in pitch
             Instrument[] allInstruments = synthesizer1.getAvailableInstruments();
 
+
+
 //<editor-fold desc="DebugLoops">
             int count = 0;
             //Loop through all available instruments
@@ -84,7 +90,6 @@ public class Synth {
             //Loading an instrument from allInstruments array at given index
 
 //</editor-fold>
-
         }//End try
 
         //Catch exceptions for unavailable sequencer and synthesizer
@@ -92,17 +97,56 @@ public class Synth {
             System.out.println("Catch triggered.");
         }//End catch
 
+
+
+
+//<editor-fold desc="For Loop Debugging">
+        for(int i = 0; i<cMajor.length;i++){
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            if(i == 0){
+                midiChannel1.noteOn(cMajor[0], velocity);
+            }
+            else if(i == 1){
+                midiChannel1.noteOn(cMajor[1], velocity);
+            }
+            else if(i == 2){
+                midiChannel1.noteOn(cMajor[2], velocity);
+            }
+            else if(i == 3){
+                midiChannel1.noteOn(cMajor[3], velocity);
+            }
+            else if(i == 4){
+                midiChannel1.noteOn(cMajor[4], velocity);
+            }
+            else if(i == 5){
+                midiChannel1.noteOn(cMajor[5], velocity);
+            }
+            else {
+                midiChannel1.noteOn(cMajor[6], velocity);
+                System.out.println("Last Note Played");
+            }//End else
+        }//End for
+
+        ///////////////////////////////////////////////////////////
+
+        /*
         //Loop to alter pitch of a note over time for debugging
         for(int i = 0; i<200; i++){
             try {
                 Thread.sleep(100);
                 //   (noteNumber = note pitch 0-127, velocity = volume/brightness)
-                midiChannel1.noteOn(sound + i,velocity);
+               // midiChannel1.noteOn(sound + i,velocity);
                 //System.out.println("Note should play");
             } catch (InterruptedException e) {
                 e.printStackTrace();
-            }
+            }//End catch
         }//End for
+        */
+//</editor-fold>
 
     }//End main
 }//End Synth
