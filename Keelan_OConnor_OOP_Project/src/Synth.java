@@ -6,16 +6,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 //import java.util.concurrent.Flow;
 
+//TODO Delete anything that is never used
+
 //TODO Implement proper inheritance
-//TODO Write base features of driver
-//TODO Music generation function
-//TODO Define rules music must follow
-//TODO Read/Write music function
 //TODO Screen size for GUI.width and height
 //TODO Learn how to use Channels + Also remove redundant code
-
-//TODO NB: ASSIGN X NOTES TO A SCALE
-//TODO Use Markov Chain to let program know correct notes to play sequentially
 
 //public void blahblah(int[]){}  //Take in key[] as variable
 
@@ -69,7 +64,7 @@ public class Synth extends MusicGenerator{
         try{
             sequencer1 = MidiSystem.getSequencer();
             synthesizer1 = MidiSystem.getSynthesizer();
-            synthesizer1.open(); //TODO make this always open
+            synthesizer1.open();
             System.out.println("Tried successfully.");
 
             //The channel is used to create sound
@@ -84,7 +79,7 @@ public class Synth extends MusicGenerator{
             int count = 0;
             //Loop through all available instruments
             for(int i = 0; i<allInstruments.length; i++){
-                //System.out.println(allInstruments[i]); //TODO: Select option to display all instruments, display on GUI
+                //System.out.println(allInstruments[i]);
                 count++;
                // System.out.println(count); //Should be 230~ instruments
             }//End for
@@ -98,7 +93,6 @@ public class Synth extends MusicGenerator{
         catch(MidiUnavailableException e){
             System.out.println("Catch triggered.");
         }//End catch
-
 
 
 

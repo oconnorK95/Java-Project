@@ -1,6 +1,5 @@
 public interface MarkovChainInterface {
 
-
     public void generateMusic();
 
     public void saveMusic(); //As binary
