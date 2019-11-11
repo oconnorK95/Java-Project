@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.concurrent.Flow;
+//import java.util.concurrent.Flow;
 
 //TODO Implement proper inheritance
 //TODO Write base features of driver
@@ -19,7 +19,7 @@ import java.util.concurrent.Flow;
 
 //public void blahblah(int[]){}  //Take in key[] as variable
 
-public class Synth {
+public class Synth extends MusicGenerator{
     public static void main(String[] args) {
 
         int velocity = 50; //The speed the note is played at, low is soft high is hard
@@ -60,7 +60,8 @@ public class Synth {
         Synthesizer synthesizer1;
         MidiChannel midiChannel1 = null;
         Instrument[] instruments1;
-        int[] cMajor = new int[] {60,62,64,67,69,71,72}; //midiChannel needs to read this in
+        //                        C, D, E, F, G, A, B, C
+        int[] cMajor = new int[] {60,62,64,65,67,69,71,72}; //midiChannel needs to read this in
 
        //Method to take in array of ints, key, and assign alpha values to them
 
