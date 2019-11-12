@@ -34,7 +34,7 @@ public abstract class MusicGenerator implements MarkovChainInterface {
     @Override
     public void generateMusic() {
         //TODO Start sequencer to store the musical notes
-        validNotes[0] = 60; //Fixed error bound must be positive, now index 0 out of bounds
+        validNotes[0] = 60; //Fixed error bound must be positive
 
 
         if(previousNote == 60 && countNote <= 24){
@@ -45,20 +45,22 @@ public abstract class MusicGenerator implements MarkovChainInterface {
             validNotes[1] = 64; //E
             validNotes[2] = 67; //G
 
-            int randomNote = new Random().nextInt(validNotes.length);
-            //TODO select a member of array randomly + play it
+            int randomNote = new Random().nextInt(validNotes.length);  //TODO fix this printing 0, only 60-64-67
+            //TODO select a member of array randomly + play it. Need coroutine or thread to delay erasure of array
             //TODO define what the previous note was for the next loop cycle
-            //midiChannelMG.noteOn(validNotes[randomNote], 50);
+
             System.out.println(validNotes[randomNote]);
+            midiChannelMG.noteOn(validNotes[randomNote], 50); //TODO fix null pointer
             countNote ++;
         }//End if
         else if(previousNote == 62 && countNote <= 24){
             //D CHORD
             System.out.println("Note of D Chord played");
             validNotes = null; //Empty the array of previous elements
-            //validNotes[0] = 62;
-            //validNotes[1] = 65;
-            //validNotes[2] = 60;
+            validNotes[0] = 60;
+            validNotes[1] = 64;
+            validNotes[2] = 67;
+
             validNotes[3] = 62;//D
             validNotes[4] = 65;//F
             validNotes[5] = 69;//A
@@ -77,6 +79,10 @@ public abstract class MusicGenerator implements MarkovChainInterface {
             validNotes[1] = 67; //G
             validNotes[2] = 71; //B
 
+            validNotes[3] = 62;//D
+            validNotes[4] = 65;//F
+            validNotes[5] = 69;//A
+
             int randomNote = new Random().nextInt(validNotes.length);
             //select one randomly
             midiChannelMG.noteOn(validNotes[randomNote], 50);
@@ -91,6 +97,10 @@ public abstract class MusicGenerator implements MarkovChainInterface {
             validNotes[1] = 69; //A
             validNotes[2] = 72; //C
 
+            validNotes[3] = 64; //E
+            validNotes[4] = 67; //G
+            validNotes[5] = 71; //B
+
             int randomNote = new Random().nextInt(validNotes.length);
             //select one randomly
             midiChannelMG.noteOn(validNotes[randomNote], 50);
@@ -104,6 +114,10 @@ public abstract class MusicGenerator implements MarkovChainInterface {
             validNotes[0] = 67; //G
             validNotes[1] = 71; //B
             validNotes[2] = 74; //high D
+
+            validNotes[3] = 65; //F
+            validNotes[4] = 69; //A
+            validNotes[5] = 72; //C
 
             int randomNote = new Random().nextInt(validNotes.length);
             //select one randomly

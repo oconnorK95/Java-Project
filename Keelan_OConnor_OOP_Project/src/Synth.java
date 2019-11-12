@@ -20,7 +20,7 @@ public class Synth extends MusicGenerator {
 
         MusicGenerator musicGenerator1 = new MusicGenerator() {};
         try {
-            musicGenerator1.generateMusic();
+            musicGenerator1.generateMusic();   //Instantiated class
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -72,7 +72,7 @@ public class Synth extends MusicGenerator {
             sequencer1 = MidiSystem.getSequencer();
             synthesizer1 = MidiSystem.getSynthesizer();
             synthesizer1.open();
-            System.out.println("Tried successfully.");
+            System.out.println("Try executed successfully.");
 
             //The channel is used to create sound
             midiChannel1 = synthesizer1.getChannels()[15]; //Max 16?
