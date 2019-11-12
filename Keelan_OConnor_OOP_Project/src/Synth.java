@@ -14,8 +14,16 @@ import java.awt.event.ActionListener;
 
 //public void blahblah(int[]){}  //Take in key[] as variable
 
-public class Synth extends MusicGenerator{
+public class Synth extends MusicGenerator {
     public static void main(String[] args) {
+
+
+        MusicGenerator musicGenerator1 = new MusicGenerator() {};
+        try {
+            musicGenerator1.generateMusic();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         int velocity = 50; //The speed the note is played at, low is soft high is hard
         int sound = 50; //Sound is the value of the note played, 50 is D
@@ -49,7 +57,6 @@ public class Synth extends MusicGenerator{
         frame1.setLayout(layout);
         frame1.setVisible(true);
         //</editor-fold>
-
         //Declaring a sequencer and synthesizer
         Sequencer sequencer1; //TODO Use sequencer for something
         Synthesizer synthesizer1;
@@ -76,6 +83,7 @@ public class Synth extends MusicGenerator{
 
 
 //<editor-fold desc="DebugLoops">
+            /*
             int count = 0;
             //Loop through all available instruments
             for(int i = 0; i<allInstruments.length; i++){
@@ -85,7 +93,7 @@ public class Synth extends MusicGenerator{
             }//End for
 
             //Loading an instrument from allInstruments array at given index
-
+*/
 //</editor-fold>
         }//End try
 
@@ -95,8 +103,8 @@ public class Synth extends MusicGenerator{
         }//End catch
 
 
-
 //<editor-fold desc="For Loop Debugging">
+        /*
         for(int i = 0; i<cMajor.length;i++){
             try {
                 Thread.sleep(100);
@@ -126,7 +134,7 @@ public class Synth extends MusicGenerator{
                 System.out.println("Last Note Played");
             }//End else
         }//End for
-
+*/
         ///////////////////////////////////////////////////////////
 
         /*

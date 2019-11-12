@@ -1,6 +1,4 @@
-import javax.sound.midi.MidiSystem;
-import java.io.File;
-import java.lang.reflect.Array;
+import javax.sound.midi.MidiChannel;
 import java.util.Random;
 
 // "Synthesizer generates sound when its MidiChannels receive noteOn messages."
@@ -9,6 +7,8 @@ import java.util.Random;
 //TODO Generate bass line to supplement the treble (need new channel?)
 //TODO Write a music save method
 //TODO Write a music read method
+
+//TODO add more notes to each loop
 
 //Generate arrays to hold possible next playable note, based on the last note played
 //First note of key must be equal to key, Key:C = Note:C
@@ -21,11 +21,12 @@ public abstract class MusicGenerator implements MarkovChainInterface {
 
 
     int previousNote = 60; //This must be C, the first note of the key regardless
-    int[] validNotes = new int[0];  //Add + Remove notes at runtime in loop
+    int[] validNotes = new int[6];  //Add + Remove notes at runtime in loop
     int countNote = 0;
     //         60,62,64,65,67,69,71,72
     //C MAJOR  C, D, E, F, G, A, B, C
     //Adding valid playable notes to the array, based on the previous note. Clear after a new note is played.
+    MidiChannel midiChannelMG;
 
 //TODO Solution: Set randomNote to 60 by default, overwrite it with the new Random number?
 //TODO Fix logical error that only allows notes to increase in pitch, should also decrease
@@ -33,30 +34,39 @@ public abstract class MusicGenerator implements MarkovChainInterface {
     @Override
     public void generateMusic() {
         //TODO Start sequencer to store the musical notes
-        int randomNote = new Random().nextInt(validNotes.length);
+        validNotes[0] = 60; //Fixed error bound must be positive, now index 0 out of bounds
+
+
         if(previousNote == 60 && countNote <= 24){
             //C CHORD
             System.out.println("Note of C Chord played");
-            validNotes = null; //Empty the array of previous elements
+            //validNotes = null; //Empty the array of previous elements
             validNotes[0] = 60; //C
             validNotes[1] = 64; //E
             validNotes[2] = 67; //G
 
+            int randomNote = new Random().nextInt(validNotes.length);
             //TODO select a member of array randomly + play it
             //TODO define what the previous note was for the next loop cycle
-            //midiChannel1.noteOn(validNotes[randomNote], 50);
+            //midiChannelMG.noteOn(validNotes[randomNote], 50);
+            System.out.println(validNotes[randomNote]);
             countNote ++;
         }//End if
         else if(previousNote == 62 && countNote <= 24){
             //D CHORD
             System.out.println("Note of D Chord played");
             validNotes = null; //Empty the array of previous elements
-            validNotes[0] = 62; //D
-            validNotes[1] = 65; //F
-            validNotes[2] = 69; //A
+            //validNotes[0] = 62;
+            //validNotes[1] = 65;
+            //validNotes[2] = 60;
+            validNotes[3] = 62;//D
+            validNotes[4] = 65;//F
+            validNotes[5] = 69;//A
 
+            int randomNote = new Random().nextInt(validNotes.length);
             //select one randomly
-            //midiChannel1.noteOn(validNotes[randomNote], 50);
+            midiChannelMG.noteOn(validNotes[randomNote], 50);
+            System.out.println(validNotes[randomNote]);
             countNote ++;
         }//End if
         else if(previousNote == 64 && countNote <= 24){
@@ -67,8 +77,10 @@ public abstract class MusicGenerator implements MarkovChainInterface {
             validNotes[1] = 67; //G
             validNotes[2] = 71; //B
 
+            int randomNote = new Random().nextInt(validNotes.length);
             //select one randomly
-            //midiChannel1.noteOn(validNotes[randomNote], 50);
+            midiChannelMG.noteOn(validNotes[randomNote], 50);
+            System.out.println(validNotes[randomNote]);
             countNote ++;
         }//End if
         else if(previousNote == 65 && countNote <= 24){
@@ -79,8 +91,10 @@ public abstract class MusicGenerator implements MarkovChainInterface {
             validNotes[1] = 69; //A
             validNotes[2] = 72; //C
 
+            int randomNote = new Random().nextInt(validNotes.length);
             //select one randomly
-            //midiChannel1.noteOn(validNotes[randomNote], 50);
+            midiChannelMG.noteOn(validNotes[randomNote], 50);
+            System.out.println(validNotes[randomNote]);
             countNote ++;
         }//End if
         else if(previousNote == 67 && countNote <= 24){
@@ -91,8 +105,10 @@ public abstract class MusicGenerator implements MarkovChainInterface {
             validNotes[1] = 71; //B
             validNotes[2] = 74; //high D
 
+            int randomNote = new Random().nextInt(validNotes.length);
             //select one randomly
-            //midiChannel1.noteOn(validNotes[randomNote], 50);
+            midiChannelMG.noteOn(validNotes[randomNote], 50);
+            System.out.println(validNotes[randomNote]);
             countNote ++;
         }//End if
         else if(previousNote == 69 && countNote <= 24){
@@ -103,8 +119,10 @@ public abstract class MusicGenerator implements MarkovChainInterface {
             validNotes[1] = 72; //C
             validNotes[2] = 76; //high E
 
+            int randomNote = new Random().nextInt(validNotes.length);
             //select one randomly
-            //midiChannel1.noteOn(validNotes[randomNote], 50);
+            midiChannelMG.noteOn(validNotes[randomNote], 50);
+            System.out.println(validNotes[randomNote]);
             countNote ++;
         }//End if
         else if(previousNote == 71 && countNote <= 24){
@@ -115,8 +133,10 @@ public abstract class MusicGenerator implements MarkovChainInterface {
             validNotes[1] = 74; //D
             validNotes[2] = 77; //F
 
+            int randomNote = new Random().nextInt(validNotes.length);
             //select one randomly
-            //midiChannel1.noteOn(randomNote, 50);
+            midiChannelMG.noteOn(randomNote, 50);
+            System.out.println(validNotes[randomNote]);
             countNote ++;
         }//End if
         /*else if(previousNote == 72 && countNote <= 24){
