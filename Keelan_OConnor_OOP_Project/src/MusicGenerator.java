@@ -49,6 +49,9 @@ public abstract class MusicGenerator implements MarkovChainInterface {
             //TODO select a member of array randomly + play it. Need coroutine or thread to delay erasure of array
             //TODO define what the previous note was for the next loop cycle
 
+            //****PROBLEM HERE****
+            //I can print out the value of validNotes[randomNote] but cant access with midi?
+
             System.out.println(validNotes[randomNote]);
             midiChannelMG.noteOn(validNotes[randomNote], 50); //TODO fix null pointer
             countNote ++;
