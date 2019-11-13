@@ -1,4 +1,6 @@
 public interface MarkovChainInterface {
+    //TODO Generate probability of a note playing at start C is 100%, afterwards all notes of chord have
+    // equal probability. Set them to 100/array.length and the rest to 0
 
     public void generateMusic();
 

@@ -1,4 +1,7 @@
 import javax.sound.midi.MidiChannel;
+import javax.sound.midi.MidiSystem;
+import javax.sound.midi.MidiUnavailableException;
+import javax.sound.midi.Synthesizer;
 import java.util.Random;
 
 // "Synthesizer generates sound when its MidiChannels receive noteOn messages."
@@ -10,11 +13,6 @@ import java.util.Random;
 
 //TODO add more notes to each loop
 
-//Generate arrays to hold possible next playable note, based on the last note played
-//First note of key must be equal to key, Key:C = Note:C
-
-//Maybe generate all the notes of each chord, select notes from each valid chord to play
-
 public abstract class MusicGenerator implements MarkovChainInterface {
     //File file1 = new File(filepath);
 
@@ -25,14 +23,27 @@ public abstract class MusicGenerator implements MarkovChainInterface {
     int countNote = 0;
     //         60,62,64,65,67,69,71,72
     //C MAJOR  C, D, E, F, G, A, B, C
-    //Adding valid playable notes to the array, based on the previous note. Clear after a new note is played.
-    MidiChannel midiChannelMG;
 
-//TODO Solution: Set randomNote to 60 by default, overwrite it with the new Random number?
+
+
+
+
+
+//TODO Fix the exception being thrown, commenting out the midi channel fixed catch executing
 //TODO Fix logical error that only allows notes to increase in pitch, should also decrease
 
     @Override
     public void generateMusic() {
+        /*
+        try{
+            Synthesizer synthesizerMG = MidiSystem.getSynthesizer();
+            synthesizerMG.open();
+            MidiChannel midiChannelMG = synthesizerMG.getChannels()[15];
+        } catch (MidiUnavailableException e) {
+            e.printStackTrace();
+        }
+*/
+
         //TODO Start sequencer to store the musical notes
         validNotes[0] = 60; //Fixed error bound must be positive
 
@@ -45,15 +56,13 @@ public abstract class MusicGenerator implements MarkovChainInterface {
             validNotes[1] = 64; //E
             validNotes[2] = 67; //G
 
+            //TODO Fix midi exception triggering here
             int randomNote = new Random().nextInt(validNotes.length);  //TODO fix this printing 0, only 60-64-67
-            //TODO select a member of array randomly + play it. Need coroutine or thread to delay erasure of array
             //TODO define what the previous note was for the next loop cycle
 
-            //****PROBLEM HERE****
-            //I can print out the value of validNotes[randomNote] but cant access with midi?
-
             System.out.println(validNotes[randomNote]);
-            midiChannelMG.noteOn(validNotes[randomNote], 50); //TODO fix null pointer
+            //midiChannelMG.noteOn(validNotes[randomNote], 50);
+            previousNote = validNotes[randomNote]; System.out.println(previousNote);
             countNote ++;
         }//End if
         else if(previousNote == 62 && countNote <= 24){
@@ -70,8 +79,9 @@ public abstract class MusicGenerator implements MarkovChainInterface {
 
             int randomNote = new Random().nextInt(validNotes.length);
             //select one randomly
-            midiChannelMG.noteOn(validNotes[randomNote], 50);
+            //midiChannelMG.noteOn(validNotes[randomNote], 50);
             System.out.println(validNotes[randomNote]);
+            previousNote = validNotes[randomNote]; System.out.println(previousNote);
             countNote ++;
         }//End if
         else if(previousNote == 64 && countNote <= 24){
@@ -88,7 +98,7 @@ public abstract class MusicGenerator implements MarkovChainInterface {
 
             int randomNote = new Random().nextInt(validNotes.length);
             //select one randomly
-            midiChannelMG.noteOn(validNotes[randomNote], 50);
+           // midiChannelMG.noteOn(validNotes[randomNote], 50);
             System.out.println(validNotes[randomNote]);
             countNote ++;
         }//End if
@@ -106,7 +116,7 @@ public abstract class MusicGenerator implements MarkovChainInterface {
 
             int randomNote = new Random().nextInt(validNotes.length);
             //select one randomly
-            midiChannelMG.noteOn(validNotes[randomNote], 50);
+            //midiChannelMG.noteOn(validNotes[randomNote], 50);
             System.out.println(validNotes[randomNote]);
             countNote ++;
         }//End if
@@ -124,7 +134,7 @@ public abstract class MusicGenerator implements MarkovChainInterface {
 
             int randomNote = new Random().nextInt(validNotes.length);
             //select one randomly
-            midiChannelMG.noteOn(validNotes[randomNote], 50);
+            //midiChannelMG.noteOn(validNotes[randomNote], 50);
             System.out.println(validNotes[randomNote]);
             countNote ++;
         }//End if
@@ -138,7 +148,7 @@ public abstract class MusicGenerator implements MarkovChainInterface {
 
             int randomNote = new Random().nextInt(validNotes.length);
             //select one randomly
-            midiChannelMG.noteOn(validNotes[randomNote], 50);
+            //midiChannelMG.noteOn(validNotes[randomNote], 50);
             System.out.println(validNotes[randomNote]);
             countNote ++;
         }//End if
@@ -152,20 +162,10 @@ public abstract class MusicGenerator implements MarkovChainInterface {
 
             int randomNote = new Random().nextInt(validNotes.length);
             //select one randomly
-            midiChannelMG.noteOn(randomNote, 50);
+            //midiChannelMG.noteOn(randomNote, 50);
             System.out.println(validNotes[randomNote]);
             countNote ++;
         }//End if
-        /*else if(previousNote == 72 && countNote <= 24){
-            validNotes = null; //Empty the array of previous elements
-            validNotes[0] = 72;
-            //validNotes[1] = 72;
-            // validNotes[2] = 72;
-
-            //select one randomly
-            //midiChannel1.noteOn(randomNote, 50);//validNotes[randomNote];
-            countNote ++;
-        }//End if */
     }//End generateMusic
 
     @Override
