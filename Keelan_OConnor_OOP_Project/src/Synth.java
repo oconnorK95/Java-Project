@@ -1,10 +1,7 @@
 import javax.sound.midi.*;
-import javax.sound.midi.Synthesizer;
+import javax.sound.midi.Synthesizer; //TODO delete unneeded imports
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-//import java.util.concurrent.Flow;
 
 //TODO Delete anything that is never used
 
@@ -16,7 +13,6 @@ public class Synth extends MusicGenerator{
     public static void main(String[] args) {
 
 
-
         //Declaring a sequencer and synthesizer
         Sequencer sequencer1; //TODO Use sequencer for something
         Synthesizer synthesizer1;
@@ -25,9 +21,15 @@ public class Synth extends MusicGenerator{
         //                        C, D, E, F, G, A, B, C
         int[] cMajor = new int[] {60,62,64,65,67,69,71,72}; //midiChannel needs to read this in
 
-        //MusicGenerator musicGenerator;
-       // musicGenerator = new MusicGenerator() {};
-        //musicGenerator.generateMusic();
+        MusicGenerator musicGenerator;
+        /*
+        musicGenerator = new MusicGenerator() {
+            @Override
+            public void generateMusic(Synthesizer synthesizerMG, MidiChannel midiChannelMG) {
+                super.generateMusic(synthesizerMG, midiChannelMG);
+            }
+        };
+*/
 
         int velocity = 50; //The speed the note is played at, low is soft high is hard
         int sound = 50; //Sound is the value of the note played, 50 is D
@@ -86,14 +88,21 @@ public class Synth extends MusicGenerator{
         //Lambda must take final, creating a final midiChannel1
         MidiChannel finalMidiChannel = midiChannel1;
         button1.addActionListener(e -> finalMidiChannel.noteOn(cMajor[0], velocity));
+        button1.addActionListener(e -> System.out.println("CMajor C: " + cMajor[0]));
         button2.addActionListener(e -> finalMidiChannel.noteOn(cMajor[1], velocity));
+        button2.addActionListener(e -> System.out.println("CMajor D: " + cMajor[1]));
         button3.addActionListener(e -> finalMidiChannel.noteOn(cMajor[2], velocity));
+        button3.addActionListener(e -> System.out.println("CMajor E: " + cMajor[2]));
         button4.addActionListener(e -> finalMidiChannel.noteOn(cMajor[3], velocity));
+        button4.addActionListener(e -> System.out.println("CMajor F: " + cMajor[3]));
         button5.addActionListener(e -> finalMidiChannel.noteOn(cMajor[4], velocity));
+        button5.addActionListener(e -> System.out.println("CMajor G: " + cMajor[4]));
         button6.addActionListener(e -> finalMidiChannel.noteOn(cMajor[5], velocity));
+        button6.addActionListener(e -> System.out.println("CMajor A: " + cMajor[5]));
         button7.addActionListener(e -> finalMidiChannel.noteOn(cMajor[6], velocity));
+        button7.addActionListener(e -> System.out.println("CMajor B: " + cMajor[6]));
         button8.addActionListener(e -> finalMidiChannel.noteOn(cMajor[7], velocity));
-
+        button8.addActionListener(e -> System.out.println("CMajor C: " + cMajor[7]));
 
         frame1.add(panel1);
         frame1.add(textPane1);
@@ -102,58 +111,5 @@ public class Synth extends MusicGenerator{
         frame1.setVisible(true);
         //</editor-fold>
 
-
-//<editor-fold desc="For Loop Debugging">
-        /*
-        for(int i = 0; i<cMajor.length;i++){
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            if(i == 0){
-                midiChannel1.noteOn(cMajor[0], velocity);
-            }
-            else if(i == 1){
-                midiChannel1.noteOn(cMajor[1], velocity);
-            }
-            else if(i == 2){
-                midiChannel1.noteOn(cMajor[2], velocity);
-            }
-            else if(i == 3){
-                midiChannel1.noteOn(cMajor[3], velocity);
-            }
-            else if(i == 4){
-                midiChannel1.noteOn(cMajor[4], velocity);
-            }
-            else if(i == 5){
-                midiChannel1.noteOn(cMajor[5], velocity);
-            }
-            else {
-                midiChannel1.noteOn(cMajor[6], velocity);
-                System.out.println("Last Note Played");
-            }//End else
-        }//End for
-        */
-
-
-        ///////////////////////////////////////////////////////////
-
-        /*
-        //Loop to alter pitch of a note over time for debugging
-        for(int i = 0; i<200; i++){
-            try {
-                Thread.sleep(100);
-                //   (noteNumber = note pitch 0-127, velocity = volume/brightness)
-               // midiChannel1.noteOn(sound + i,velocity);
-                //System.out.println("Note should play");
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }//End catch
-        }//End for
-        */
-//</editor-fold>
-
     }//End main
-
 }//End Synth

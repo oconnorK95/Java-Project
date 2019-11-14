@@ -16,32 +16,33 @@ import java.util.Random;
 public abstract class MusicGenerator{
     //File file1 = new File(filepath);
 
-
-
     int previousNote = 60; //This must be C, the first note of the key regardless
     int[] validNotes = new int[6];  //Add + Remove notes at runtime in loop
     int countNote = 0;
+    MidiChannel midiChannelMG;
+    Synthesizer synthesizerMG;
     //         60,62,64,65,67,69,71,72
     //C MAJOR  C, D, E, F, G, A, B, C
-
-
-
-
-
 
 //TODO Fix the exception being thrown, commenting out the midi channel fixed catch executing
 //TODO Fix logical error that only allows notes to increase in pitch, should also decrease
     MusicGenerator(Synthesizer synthesizerMG,MidiChannel midiChannelMG){
     }
 
-    public void generateMusic(Synthesizer synthesizerMG, MidiChannel midiChannelMG) {
+    public MusicGenerator() {
 
+    }
+
+    public void generateMusic(Synthesizer synthesizerMG, MidiChannel midiChannelMG) {
+        //this.midiChannelMG = midiChannelMG;
+        //this.synthesizerMG = synthesizerMG;
         try{
             synthesizerMG = MidiSystem.getSynthesizer();
             synthesizerMG.open();
             midiChannelMG = synthesizerMG.getChannels()[15];
         } catch (MidiUnavailableException e) {
             e.printStackTrace();
+            System.out.println("Music generator catch triggered.");
         }
 
         //TODO Start sequencer to store the musical notes
@@ -79,7 +80,7 @@ public abstract class MusicGenerator{
 
             int randomNote = new Random().nextInt(validNotes.length);
             //select one randomly
-            //midiChannelMG.noteOn(validNotes[randomNote], 50);
+            midiChannelMG.noteOn(validNotes[randomNote], 50);
             System.out.println(validNotes[randomNote]);
             previousNote = validNotes[randomNote]; System.out.println(previousNote);
             countNote ++;
@@ -98,7 +99,7 @@ public abstract class MusicGenerator{
 
             int randomNote = new Random().nextInt(validNotes.length);
             //select one randomly
-           // midiChannelMG.noteOn(validNotes[randomNote], 50);
+            midiChannelMG.noteOn(validNotes[randomNote], 50);
             System.out.println(validNotes[randomNote]);
             countNote ++;
         }//End if
@@ -116,7 +117,7 @@ public abstract class MusicGenerator{
 
             int randomNote = new Random().nextInt(validNotes.length);
             //select one randomly
-            //midiChannelMG.noteOn(validNotes[randomNote], 50);
+            midiChannelMG.noteOn(validNotes[randomNote], 50);
             System.out.println(validNotes[randomNote]);
             countNote ++;
         }//End if
@@ -134,7 +135,7 @@ public abstract class MusicGenerator{
 
             int randomNote = new Random().nextInt(validNotes.length);
             //select one randomly
-            //midiChannelMG.noteOn(validNotes[randomNote], 50);
+            midiChannelMG.noteOn(validNotes[randomNote], 50);
             System.out.println(validNotes[randomNote]);
             countNote ++;
         }//End if
@@ -148,7 +149,7 @@ public abstract class MusicGenerator{
 
             int randomNote = new Random().nextInt(validNotes.length);
             //select one randomly
-            //midiChannelMG.noteOn(validNotes[randomNote], 50);
+            midiChannelMG.noteOn(validNotes[randomNote], 50);
             System.out.println(validNotes[randomNote]);
             countNote ++;
         }//End if
@@ -162,18 +163,16 @@ public abstract class MusicGenerator{
 
             int randomNote = new Random().nextInt(validNotes.length);
             //select one randomly
-            //midiChannelMG.noteOn(randomNote, 50);
+            midiChannelMG.noteOn(randomNote, 50);
             System.out.println(validNotes[randomNote]);
             countNote ++;
         }//End if
     }//End generateMusic
 
-
     public void saveMusic() {
         //MidiSystem.write();
         //access sequencer
     }//End saveMusic
-
 
     public void readMusic() {
         //AudioInputStream audioInputStream =

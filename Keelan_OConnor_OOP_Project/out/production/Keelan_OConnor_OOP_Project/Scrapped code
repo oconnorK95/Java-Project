@@ -1,52 +1,21 @@
-//<editor-fold desc="For Loop Debugging">
-        /*
-        for(int i = 0; i<cMajor.length;i++){
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            if(i == 0){
-                midiChannel1.noteOn(cMajor[0], velocity);
-            }
-            else if(i == 1){
-                midiChannel1.noteOn(cMajor[1], velocity);
-            }
-            else if(i == 2){
-                midiChannel1.noteOn(cMajor[2], velocity);
-            }
-            else if(i == 3){
-                midiChannel1.noteOn(cMajor[3], velocity);
-            }
-            else if(i == 4){
-                midiChannel1.noteOn(cMajor[4], velocity);
-            }
-            else if(i == 5){
-                midiChannel1.noteOn(cMajor[5], velocity);
-            }
-            else {
-                midiChannel1.noteOn(cMajor[6], velocity);
-                System.out.println("Last Note Played");
-            }//End else
-        }//End for
-*/
-        ///////////////////////////////////////////////////////////
+import javax.sound.midi.MidiChannel;
+import javax.sound.midi.Synthesizer;
 
-        /*
-        //Loop to alter pitch of a note over time for debugging
-        for(int i = 0; i<200; i++){
-            try {
-                Thread.sleep(100);
-                //   (noteNumber = note pitch 0-127, velocity = volume/brightness)
-               // midiChannel1.noteOn(sound + i,velocity);
-                //System.out.println("Note should play");
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }//End catch
-        }//End for
-        */
-//</editor-fold>
+public interface MarkovChainInterface {
+    //TODO Generate probability of a note playing at start C is 100%, afterwards all notes of chord have
+    // equal probability. Set them to 100/array.length and the rest to 0
 
+    public void generateMusic();
+
+    void generateMusic(Synthesizer synthesizerMG, MidiChannel midiChannelMG);//End generateMusic
+
+
+    public void saveMusic(); //As binary
+    public void readMusic(); //From binary file
+
+}//End MarkovChainInterface
+
+//////////////////////////////////////////////////////////////////////////
 
 //Solution for Music Generator
 
@@ -228,3 +197,55 @@ public abstract class MusicGenerator implements MarkovChainInterface {
     }//End writeMusic
 
 }//End MusicGenerator
+
+
+//<editor-fold desc="For Loop Debugging">
+        /*
+        for(int i = 0; i<cMajor.length;i++){
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            if(i == 0){
+                midiChannel1.noteOn(cMajor[0], velocity);
+            }
+            else if(i == 1){
+                midiChannel1.noteOn(cMajor[1], velocity);
+            }
+            else if(i == 2){
+                midiChannel1.noteOn(cMajor[2], velocity);
+            }
+            else if(i == 3){
+                midiChannel1.noteOn(cMajor[3], velocity);
+            }
+            else if(i == 4){
+                midiChannel1.noteOn(cMajor[4], velocity);
+            }
+            else if(i == 5){
+                midiChannel1.noteOn(cMajor[5], velocity);
+            }
+            else {
+                midiChannel1.noteOn(cMajor[6], velocity);
+                System.out.println("Last Note Played");
+            }//End else
+        }//End for
+        */
+
+
+        ///////////////////////////////////////////////////////////
+
+        /*
+        //Loop to alter pitch of a note over time for debugging
+        for(int i = 0; i<200; i++){
+            try {
+                Thread.sleep(100);
+                //   (noteNumber = note pitch 0-127, velocity = volume/brightness)
+               // midiChannel1.noteOn(sound + i,velocity);
+                //System.out.println("Note should play");
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }//End catch
+        }//End for
+        */
+//</editor-fold>
