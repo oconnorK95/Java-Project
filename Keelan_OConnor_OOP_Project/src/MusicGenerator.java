@@ -13,7 +13,7 @@ import java.util.Random;
 
 //TODO add more notes to each loop
 
-public abstract class MusicGenerator implements MarkovChainInterface {
+public abstract class MusicGenerator{
     //File file1 = new File(filepath);
 
 
@@ -31,22 +31,21 @@ public abstract class MusicGenerator implements MarkovChainInterface {
 
 //TODO Fix the exception being thrown, commenting out the midi channel fixed catch executing
 //TODO Fix logical error that only allows notes to increase in pitch, should also decrease
+    MusicGenerator(Synthesizer synthesizerMG,MidiChannel midiChannelMG){
+    }
 
-    @Override
-    public void generateMusic() {
-        /*
+    public void generateMusic(Synthesizer synthesizerMG, MidiChannel midiChannelMG) {
+
         try{
-            Synthesizer synthesizerMG = MidiSystem.getSynthesizer();
+            synthesizerMG = MidiSystem.getSynthesizer();
             synthesizerMG.open();
-            MidiChannel midiChannelMG = synthesizerMG.getChannels()[15];
+            midiChannelMG = synthesizerMG.getChannels()[15];
         } catch (MidiUnavailableException e) {
             e.printStackTrace();
         }
-*/
 
         //TODO Start sequencer to store the musical notes
         validNotes[0] = 60; //Fixed error bound must be positive
-
 
         if(previousNote == 60 && countNote <= 24){
             //C CHORD
@@ -61,7 +60,8 @@ public abstract class MusicGenerator implements MarkovChainInterface {
             //TODO define what the previous note was for the next loop cycle
 
             System.out.println(validNotes[randomNote]);
-            //midiChannelMG.noteOn(validNotes[randomNote], 50);
+
+            midiChannelMG.noteOn(validNotes[randomNote], 50);
             previousNote = validNotes[randomNote]; System.out.println(previousNote);
             countNote ++;
         }//End if
@@ -168,12 +168,13 @@ public abstract class MusicGenerator implements MarkovChainInterface {
         }//End if
     }//End generateMusic
 
-    @Override
+
     public void saveMusic() {
         //MidiSystem.write();
+        //access sequencer
     }//End saveMusic
 
-    @Override
+
     public void readMusic() {
         //AudioInputStream audioInputStream =
         // AudioSystem.getAudioInputStream(fileIn);
