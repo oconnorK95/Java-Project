@@ -6,8 +6,6 @@ import java.awt.*;
 //TODO Delete anything that is never used
 
 //TODO File reading and writing in separate instantiable class
-//TODO Screen size for GUI.width and height
-//TODO Learn how to use Channels + Also remove redundant code
 
 public class Synth extends MusicGenerator{
     public static void main(String[] args) {
@@ -28,30 +26,7 @@ public class Synth extends MusicGenerator{
             }
         };
 
-        for(int i = 0; i<8;i++) {
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            if (i == 0) {
-                musicGenerator.PlayChordC();
-            } else if (i == 1) {
-                musicGenerator.PlayChordD();
-            } else if (i == 2) {
-                musicGenerator.PlayChordE();
-            } else if (i == 3) {
-                musicGenerator.PlayChordF();
-            } else if (i == 4) {
-                musicGenerator.PlayChordG();
-            } else if (i == 5) {
-                musicGenerator.PlayChordA();
-            } else if (i == 6) {
-                musicGenerator.PlayChordB();
-            } else if (i == 7) {
-                musicGenerator.PlayChordHighC();
-            }
-        }//End for
+
         musicGenerator.generateMusic();
 
 
@@ -109,6 +84,10 @@ public class Synth extends MusicGenerator{
         panel1.add(button7);
         panel1.add(button8);
 
+        JMenuBar menuBar1 = new JMenuBar();
+        JMenu menu, submenu;
+        frame1.add(menuBar1);
+
         //Auto generated lambda from action listener
         // noteOn(note in the index of cMajor array, how forcefully to play the note)
         MidiChannel finalMidiChannel = midiChannel1;
@@ -128,6 +107,12 @@ public class Synth extends MusicGenerator{
         button7.addActionListener(e -> System.out.println("C Major B: " + cMajor[6]));
         button8.addActionListener(e -> finalMidiChannel.noteOn(cMajor[7], velocity));
         button8.addActionListener(e -> System.out.println("C Major C: " + cMajor[7]));
+
+        JButton button9 = new JButton("Play Chords");
+        frame1.add(button9);
+        JButton button10 = new JButton("Tutorial");
+        frame1.add(button10);
+        button10.addActionListener(e -> { System.out.println("Tutorial Here");});
 
         frame1.add(panel1);
         frame1.add(textPane1);
