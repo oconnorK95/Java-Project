@@ -16,26 +16,24 @@ import java.util.Random;
 public abstract class MusicGenerator{
     //File file1 = new File(filepath);
 
-    int previousNote = 60; //This must be C, the first note of the key regardless
-    int[] validNotes = new int[6];  //Add + Remove notes at runtime in loop
-    int countNote = 0;
-    MidiChannel midiChannelMG;
-    Synthesizer synthesizerMG;
+    int previousNote = 60; //This must be 60(C), as it is the first note of the key
+    int[] validNotes = new int[6];  //Stores the notes currently playable, added removed throughout loop
+    int countNote = 0; //Counts how many notes have been played to terminate loop
+    Synthesizer synthesizerMG; //Setting up the synthesizer
+    MidiChannel midiChannelMG; //Setting up the midi channel
+
     //         60,62,64,65,67,69,71,72
     //C MAJOR  C, D, E, F, G, A, B, C
 
 //TODO Fix the exception being thrown, commenting out the midi channel fixed catch executing
 //TODO Fix logical error that only allows notes to increase in pitch, should also decrease
-    MusicGenerator(Synthesizer synthesizerMG,MidiChannel midiChannelMG){
-    }
 
-    public MusicGenerator() {
-
-    }
-
-    public void generateMusic(Synthesizer synthesizerMG, MidiChannel midiChannelMG) {
+    //This method will generate notes, the note played determines which notes can play next
+    public void generateMusic() {
         //this.midiChannelMG = midiChannelMG;
         //this.synthesizerMG = synthesizerMG;
+
+        //Attempts to define synthesizer and midi channel
         try{
             synthesizerMG = MidiSystem.getSynthesizer();
             synthesizerMG.open();
@@ -46,7 +44,8 @@ public abstract class MusicGenerator{
         }
 
         //TODO Start sequencer to store the musical notes
-        validNotes[0] = 60; //Fixed error bound must be positive
+        //Ensuring the first valid note is C
+        validNotes[0] = 60;
 
         if(previousNote == 60 && countNote <= 24){
             //C CHORD
@@ -56,13 +55,14 @@ public abstract class MusicGenerator{
             validNotes[1] = 64; //E
             validNotes[2] = 67; //G
 
-            //TODO Fix midi exception triggering here
+            //Generate random number within array length
             int randomNote = new Random().nextInt(validNotes.length);  //TODO fix this printing 0, only 60-64-67
             //TODO define what the previous note was for the next loop cycle
 
             System.out.println(validNotes[randomNote]);
-
+            //Play note(X, with force Y)
             midiChannelMG.noteOn(validNotes[randomNote], 50);
+            //Setting previous note as the random note so the next markov chain state can generate valid notes
             previousNote = validNotes[randomNote]; System.out.println(previousNote);
             countNote ++;
         }//End if
@@ -168,6 +168,122 @@ public abstract class MusicGenerator{
             countNote ++;
         }//End if
     }//End generateMusic
+
+    //These methods will play a Chord(3 notes)
+    public void PlayChordC(){
+        //Attempt to set up Synthesizer and Midi Channel
+        try{
+            synthesizerMG = MidiSystem.getSynthesizer();
+            synthesizerMG.open();
+            midiChannelMG = synthesizerMG.getChannels()[15];
+        } catch (MidiUnavailableException e) {
+            e.printStackTrace();
+            System.out.println("Music generator catch triggered.");
+        }
+        //Play note(C with 50 force), (E with 50 force) and (G with 50 force)
+        midiChannelMG.noteOn(60,50);
+        midiChannelMG.noteOn(64,50);
+        midiChannelMG.noteOn(67,50);
+        System.out.println("Played C");
+    }
+    public void PlayChordD(){
+        try{
+            synthesizerMG = MidiSystem.getSynthesizer();
+            synthesizerMG.open();
+            midiChannelMG = synthesizerMG.getChannels()[15];
+        } catch (MidiUnavailableException e) {
+            e.printStackTrace();
+            System.out.println("Music generator catch triggered.");
+        }
+        midiChannelMG.noteOn(62,50);
+        midiChannelMG.noteOn(65,50);
+        midiChannelMG.noteOn(69,50);
+        System.out.println("Played D");
+    }
+    public void PlayChordE(){
+        try{
+            synthesizerMG = MidiSystem.getSynthesizer();
+            synthesizerMG.open();
+            midiChannelMG = synthesizerMG.getChannels()[15];
+        } catch (MidiUnavailableException e) {
+            e.printStackTrace();
+            System.out.println("Music generator catch triggered.");
+        }
+        midiChannelMG.noteOn(64,50);
+        midiChannelMG.noteOn(67,50);
+        midiChannelMG.noteOn(71,50);
+        System.out.println("Played E");
+    }
+    public void PlayChordF(){
+        try{
+            synthesizerMG = MidiSystem.getSynthesizer();
+            synthesizerMG.open();
+            midiChannelMG = synthesizerMG.getChannels()[15];
+        } catch (MidiUnavailableException e) {
+            e.printStackTrace();
+            System.out.println("Music generator catch triggered.");
+        }
+        midiChannelMG.noteOn(65,50);
+        midiChannelMG.noteOn(69,50);
+        midiChannelMG.noteOn(72,50);
+        System.out.println("Played F");
+    }
+    public void PlayChordG(){
+        try{
+            synthesizerMG = MidiSystem.getSynthesizer();
+            synthesizerMG.open();
+            midiChannelMG = synthesizerMG.getChannels()[15];
+        } catch (MidiUnavailableException e) {
+            e.printStackTrace();
+            System.out.println("Music generator catch triggered.");
+        }
+        midiChannelMG.noteOn(67,50);
+        midiChannelMG.noteOn(71,50);
+        midiChannelMG.noteOn(74,50);
+        System.out.println("Played G");
+    }
+    public void PlayChordA(){
+        try{
+            synthesizerMG = MidiSystem.getSynthesizer();
+            synthesizerMG.open();
+            midiChannelMG = synthesizerMG.getChannels()[15];
+        } catch (MidiUnavailableException e) {
+            e.printStackTrace();
+            System.out.println("Music generator catch triggered.");
+        }
+        midiChannelMG.noteOn(69,50);
+        midiChannelMG.noteOn(72,50);
+        midiChannelMG.noteOn(76,50);
+        System.out.println("Played A");
+    }
+    public void PlayChordB(){
+        try{
+            synthesizerMG = MidiSystem.getSynthesizer();
+            synthesizerMG.open();
+            midiChannelMG = synthesizerMG.getChannels()[15];
+        } catch (MidiUnavailableException e) {
+            e.printStackTrace();
+            System.out.println("Music generator catch triggered.");
+        }
+        midiChannelMG.noteOn(71,50);
+        midiChannelMG.noteOn(74,50);
+        midiChannelMG.noteOn(77,50);
+        System.out.println("Played B");
+    }
+    public void PlayChordHighC(){
+        try{
+            synthesizerMG = MidiSystem.getSynthesizer();
+            synthesizerMG.open();
+            midiChannelMG = synthesizerMG.getChannels()[15];
+        } catch (MidiUnavailableException e) {
+            e.printStackTrace();
+            System.out.println("Music generator catch triggered.");
+        }
+        midiChannelMG.noteOn(72,50);
+        midiChannelMG.noteOn(74,50);
+        midiChannelMG.noteOn(76,50);
+        System.out.println("Played High C");
+    }
 
     public void saveMusic() {
         //MidiSystem.write();

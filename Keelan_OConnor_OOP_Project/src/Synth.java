@@ -5,7 +5,7 @@ import java.awt.*;
 
 //TODO Delete anything that is never used
 
-//TODO Implement proper inheritance
+//TODO File reading and writing in separate instantiable class
 //TODO Screen size for GUI.width and height
 //TODO Learn how to use Channels + Also remove redundant code
 
@@ -16,33 +16,57 @@ public class Synth extends MusicGenerator{
         //Declaring a sequencer and synthesizer
         Sequencer sequencer1; //TODO Use sequencer for something
         Synthesizer synthesizer1;
-        MidiChannel midiChannel1 = null;
-        Instrument[] instruments1;
+        MidiChannel midiChannel1 = null;  //Midi channels take in midi events for a synthesizer
+
         //                        C, D, E, F, G, A, B, C
         int[] cMajor = new int[] {60,62,64,65,67,69,71,72}; //midiChannel needs to read this in
 
         MusicGenerator musicGenerator;
-        /*
         musicGenerator = new MusicGenerator() {
-            @Override
-            public void generateMusic(Synthesizer synthesizerMG, MidiChannel midiChannelMG) {
-                super.generateMusic(synthesizerMG, midiChannelMG);
+            public void generateMusic() {
+                super.generateMusic();
             }
         };
-*/
+
+        for(int i = 0; i<8;i++) {
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            if (i == 0) {
+                musicGenerator.PlayChordC();
+            } else if (i == 1) {
+                musicGenerator.PlayChordD();
+            } else if (i == 2) {
+                musicGenerator.PlayChordE();
+            } else if (i == 3) {
+                musicGenerator.PlayChordF();
+            } else if (i == 4) {
+                musicGenerator.PlayChordG();
+            } else if (i == 5) {
+                musicGenerator.PlayChordA();
+            } else if (i == 6) {
+                musicGenerator.PlayChordB();
+            } else if (i == 7) {
+                musicGenerator.PlayChordHighC();
+            }
+        }//End for
+        musicGenerator.generateMusic();
+
 
         int velocity = 50; //The speed the note is played at, low is soft high is hard
         int sound = 50; //Sound is the value of the note played, 50 is D
-        // Collapsed GUI to clean up code
+
 
         try{
             sequencer1 = MidiSystem.getSequencer();
-            synthesizer1 = MidiSystem.getSynthesizer();
-            synthesizer1.open();
+            synthesizer1 = MidiSystem.getSynthesizer(); //Define a synthesizer
+            synthesizer1.open(); //Open the synthesizer so it can operate
             System.out.println("Tried successfully.");
 
             //The channel is used to create sound
-            midiChannel1 = synthesizer1.getChannels()[15]; //Max 16?
+            midiChannel1 = synthesizer1.getChannels()[15]; //Max 16
 
             //Instruments store a sound which can be shifted in pitch
             Instrument[] allInstruments = synthesizer1.getAvailableInstruments();
@@ -53,6 +77,7 @@ public class Synth extends MusicGenerator{
             System.out.println("Catch triggered.");
         }//End catch
 
+        //TODO GUI MENU STRIP
 //<editor-fold desc="GUI">
         //GUI Setup
         JFrame frame1 = new JFrame("Synthesizer");
@@ -85,24 +110,24 @@ public class Synth extends MusicGenerator{
         panel1.add(button8);
 
         //Auto generated lambda from action listener
-        //Lambda must take final, creating a final midiChannel1
+        // noteOn(note in the index of cMajor array, how forcefully to play the note)
         MidiChannel finalMidiChannel = midiChannel1;
         button1.addActionListener(e -> finalMidiChannel.noteOn(cMajor[0], velocity));
-        button1.addActionListener(e -> System.out.println("CMajor C: " + cMajor[0]));
+        button1.addActionListener(e -> System.out.println("C Major C: " + cMajor[0]));
         button2.addActionListener(e -> finalMidiChannel.noteOn(cMajor[1], velocity));
-        button2.addActionListener(e -> System.out.println("CMajor D: " + cMajor[1]));
+        button2.addActionListener(e -> System.out.println("C Major D: " + cMajor[1]));
         button3.addActionListener(e -> finalMidiChannel.noteOn(cMajor[2], velocity));
-        button3.addActionListener(e -> System.out.println("CMajor E: " + cMajor[2]));
+        button3.addActionListener(e -> System.out.println("C Major E: " + cMajor[2]));
         button4.addActionListener(e -> finalMidiChannel.noteOn(cMajor[3], velocity));
-        button4.addActionListener(e -> System.out.println("CMajor F: " + cMajor[3]));
+        button4.addActionListener(e -> System.out.println("C Major F: " + cMajor[3]));
         button5.addActionListener(e -> finalMidiChannel.noteOn(cMajor[4], velocity));
-        button5.addActionListener(e -> System.out.println("CMajor G: " + cMajor[4]));
+        button5.addActionListener(e -> System.out.println("C Major G: " + cMajor[4]));
         button6.addActionListener(e -> finalMidiChannel.noteOn(cMajor[5], velocity));
-        button6.addActionListener(e -> System.out.println("CMajor A: " + cMajor[5]));
+        button6.addActionListener(e -> System.out.println("C Major A: " + cMajor[5]));
         button7.addActionListener(e -> finalMidiChannel.noteOn(cMajor[6], velocity));
-        button7.addActionListener(e -> System.out.println("CMajor B: " + cMajor[6]));
+        button7.addActionListener(e -> System.out.println("C Major B: " + cMajor[6]));
         button8.addActionListener(e -> finalMidiChannel.noteOn(cMajor[7], velocity));
-        button8.addActionListener(e -> System.out.println("CMajor C: " + cMajor[7]));
+        button8.addActionListener(e -> System.out.println("C Major C: " + cMajor[7]));
 
         frame1.add(panel1);
         frame1.add(textPane1);
