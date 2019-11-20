@@ -351,14 +351,5 @@ public abstract class MusicGenerator{
         }//End for
     }//End PlayAllChords
 
-    public void saveMusic() {
-        //MidiSystem.write();
-        //access sequencer
-    }//End saveMusic
-
-    public void readMusic() {
-        //AudioInputStream audioInputStream =
-        // AudioSystem.getAudioInputStream(fileIn);
-    }//End writeMusic
 
 }//End MusicGenerator
