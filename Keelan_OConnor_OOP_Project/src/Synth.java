@@ -59,7 +59,8 @@ public class Synth extends MusicGenerator{
         frame1.setBounds(400, 250, 400, 400); //Location + position of GUI
         JPanel panel1 = new JPanel();
         panel1.setBackground(Color.gray);
-        JLabel label1 = new JLabel("Key of C:");
+        //JLabel label1 = new JLabel("Key of C:");
+        //frame1.add(label1);
         JTextPane textPane1 = new JTextPane();
         textPane1.setBounds(1, 1, 200, 200);
         textPane1.setText("Click on a note in the key of C to play it");
@@ -74,7 +75,7 @@ public class Synth extends MusicGenerator{
         JButton button6 = new JButton("A");
         JButton button7 = new JButton("B");
         JButton button8 = new JButton("C");
-        frame1.add(label1);
+
         panel1.add(button1);
         panel1.add(button2);
         panel1.add(button3);
@@ -84,8 +85,15 @@ public class Synth extends MusicGenerator{
         panel1.add(button7);
         panel1.add(button8);
 
-        JMenuBar menuBar1 = new JMenuBar();
-        JMenu menu, submenu;
+        JMenuBar menuBar1;
+        menuBar1 = new JMenuBar();
+        JMenu menu1;
+        JMenuItem submenu1, submenu2;
+        menu1 = new JMenu("Play: ");
+        submenu1 = new JMenuItem("Chords");
+        submenu2 = new JMenuItem("Notes");
+        menuBar1.add(menu1);
+        menu1.add(submenu1, submenu2);
         frame1.add(menuBar1);
 
         //Auto generated lambda from action listener
@@ -108,11 +116,12 @@ public class Synth extends MusicGenerator{
         button8.addActionListener(e -> finalMidiChannel.noteOn(cMajor[7], velocity));
         button8.addActionListener(e -> System.out.println("C Major C: " + cMajor[7]));
 
-        JButton button9 = new JButton("Play Chords");
-        frame1.add(button9);
-        JButton button10 = new JButton("Tutorial");
-        frame1.add(button10);
-        button10.addActionListener(e -> { System.out.println("Tutorial Here");});
+        //JButton button9 = new JButton("Play Chords");
+        //frame1.add(button9);
+        //JButton button10 = new JButton("Tutorial");
+        //frame1.add(button10);
+        //button10.addActionListener(e -> { System.out.println("Tutorial Here");});
+        //button10.addActionListener(e -> { /*Load TUtorial FIle*/;});
 
         frame1.add(panel1);
         frame1.add(textPane1);

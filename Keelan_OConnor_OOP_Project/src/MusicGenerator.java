@@ -16,7 +16,6 @@ import java.util.Random;
 //TODO add more notes to each loop
 
 public abstract class MusicGenerator{
-    //File file1 = new File(filepath);
 
     int previousNote = 60; //This must be 60(C), as it is the first note of the key
     int[] validNotes = new int[6];  //Stores the notes currently playable, added removed throughout loop
@@ -49,7 +48,7 @@ public abstract class MusicGenerator{
         validNotes[0] = 60;
         while(countNote < 24) {
             try {
-                Thread.sleep(200);
+                Thread.sleep(250);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
