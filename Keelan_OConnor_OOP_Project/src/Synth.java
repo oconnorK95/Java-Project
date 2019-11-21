@@ -118,10 +118,7 @@ public class Synth extends MusicGenerator{
 
         //JButton button9 = new JButton("Play Chords");
         //frame1.add(button9);
-        //JButton button10 = new JButton("Tutorial");
-        //frame1.add(button10);
-        //button10.addActionListener(e -> { System.out.println("Tutorial Here");});
-        //button10.addActionListener(e -> { /*Load TUtorial FIle*/;});
+
 
         frame1.add(panel1);
         frame1.add(textPane1);

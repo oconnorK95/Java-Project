@@ -60,6 +60,10 @@ public abstract class MusicGenerator{
                 validNotes[1] = 64; //E
                 validNotes[2] = 67; //G
 
+                validNotes[3] = 60; //C
+                validNotes[4] = 64; //E
+                validNotes[5] = 67; //G
+
                 //Generate random note to play
                 //This while statement prevents the music generator loop from accepting a "0" which cannot be played
                 int randomNote = 0;
@@ -75,6 +79,8 @@ public abstract class MusicGenerator{
                 //Play note(X, with force Y)
                 midiChannelMG.noteOn(validNotes[randomNote], 50);
                 //Setting previous note as the random note so the next markov chain state can generate valid notes
+                System.out.println(randomNote + " " + validNotes[randomNote]);
+
                 previousNote = validNotes[randomNote];
                 System.out.println("Previous note: " + previousNote);
                 countNote++;
