@@ -27,12 +27,8 @@ public class Synth extends MusicGenerator{
         };
 
 
-
-
-
         int velocity = 50; //The speed the note is played at, low is soft high is hard
         int sound = 50; //Sound is the value of the note played, 50 is D
-
 
         try{
             sequencer1 = MidiSystem.getSequencer();
@@ -85,6 +81,7 @@ public class Synth extends MusicGenerator{
         panel1.add(button7);
         panel1.add(button8);
 
+        //TODO make menu options do things
         JMenuBar menuBar1;
         menuBar1 = new JMenuBar();
         JMenu menu1;
@@ -122,6 +119,19 @@ public class Synth extends MusicGenerator{
         JButton button9 = new JButton("Generate Random Music");
         frame1.add(button9);
         button9.addActionListener(e -> musicGenerator.generateMusic());
+
+        JButton button10 = new JButton("Record");
+        frame1.add(button10);
+        button10.addActionListener(e -> System.out.println("Record Enabled"));
+
+        JButton button11 = new JButton("Stop Recording");
+        frame1.add(button11);
+        button11.addActionListener(e -> System.out.println("Record Finished"));
+
+        //TODO list of playable midis
+        JButton button12 = new JButton("Play a Recording");
+        frame1.add(button12);
+        button12.addActionListener(e -> System.out.println("Play something"));
 
         frame1.add(panel1);
         frame1.add(textPane1);

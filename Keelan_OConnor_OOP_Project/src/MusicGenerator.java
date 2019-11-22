@@ -12,9 +12,6 @@ import java.util.Random;
 //TODO Generate bass line to supplement the treble (need new channel?)
 //TODO Write a music save method
 //TODO Write a music read method
-
-//TODO add more notes to each loop
-
 public abstract class MusicGenerator{
 
     int previousNote = 60; //This must be 60(C), as it is the first note of the key
@@ -22,11 +19,11 @@ public abstract class MusicGenerator{
     int countNote = 0; //Counts how many notes have been played to terminate loop
     Synthesizer synthesizerMG; //Setting up the synthesizer
     MidiChannel midiChannelMG; //Setting up the midi channel
+    int[] notesPlayed = new int[24];
 
     //         60,62,64,65,67,69,71,72
     //C MAJOR  C, D, E, F, G, A, B, C
 
-//TODO Fix logical error: Loop cant handle notes outside cMajor >72
     //This method will generate notes, the note played determines which notes can play next
     public void generateMusic() {
 
@@ -67,7 +64,7 @@ public abstract class MusicGenerator{
 
                 while(randomNote == 0) {
                     randomNote = new Random().nextInt(validNotes.length);
-                    System.out.println("Random number was 0");
+                    //System.out.println("Random number was 0");
                 }
 
                 //Have to play note 60 for the music theory to be correct
@@ -76,10 +73,10 @@ public abstract class MusicGenerator{
                 //Play note(X, with force Y)
                 midiChannelMG.noteOn(validNotes[randomNote], 50);
                 //Setting previous note as the random note so the next markov chain state can generate valid notes
-                System.out.println(randomNote + " " + validNotes[randomNote]);
 
                 previousNote = validNotes[randomNote];
-                System.out.println("Previous note: " + previousNote);
+                //System.out.println("Previous note: " + previousNote);
+                notesPlayed[countNote] = validNotes[randomNote];
                 countNote++;
             }//End if
             else if (previousNote == 62 && countNote <= 24) {
@@ -105,7 +102,9 @@ public abstract class MusicGenerator{
                 midiChannelMG.noteOn(validNotes[randomNote], 50);
                 System.out.println(validNotes[randomNote]);
                 previousNote = validNotes[randomNote];
-                System.out.println(previousNote);
+                //System.out.println(previousNote);
+
+                notesPlayed[countNote] = validNotes[randomNote];
                 countNote++;
             }//End if
             else if (previousNote == 64 && countNote <= 24) {
@@ -129,6 +128,8 @@ public abstract class MusicGenerator{
                 midiChannelMG.noteOn(validNotes[randomNote], 50);
                 previousNote = validNotes[randomNote];
                 System.out.println(validNotes[randomNote]);
+
+                notesPlayed[countNote] = validNotes[randomNote];
                 countNote++;
             }//End if
             else if (previousNote == 65 && countNote <= 24) {
@@ -152,6 +153,8 @@ public abstract class MusicGenerator{
                 midiChannelMG.noteOn(validNotes[randomNote], 50);
                 System.out.println(validNotes[randomNote]);
                 previousNote = validNotes[randomNote];
+
+                notesPlayed[countNote] = validNotes[randomNote];
                 countNote++;
             }//End if
             else if (previousNote == 67 && countNote <= 24) {
@@ -176,6 +179,8 @@ public abstract class MusicGenerator{
                 midiChannelMG.noteOn(validNotes[randomNote], 50);
                 System.out.println(validNotes[randomNote]);
                 previousNote = validNotes[randomNote];
+
+                notesPlayed[countNote] = validNotes[randomNote];
                 countNote++;
             }//End if
             else if (previousNote == 69 && countNote <= 24) {
@@ -200,6 +205,8 @@ public abstract class MusicGenerator{
                 midiChannelMG.noteOn(validNotes[randomNote], 50);
                 System.out.println(validNotes[randomNote]);
                 previousNote = validNotes[randomNote];
+
+                notesPlayed[countNote] = validNotes[randomNote];
                 countNote++;
             }//End if
             else if (previousNote == 71 && countNote <= 24) {
@@ -224,6 +231,8 @@ public abstract class MusicGenerator{
                 midiChannelMG.noteOn(randomNote, 50);
                 System.out.println(validNotes[randomNote]);
                 previousNote = validNotes[randomNote];
+
+                notesPlayed[countNote] = validNotes[randomNote];
                 countNote++;
             }//End if
             else{
@@ -244,7 +253,7 @@ public abstract class MusicGenerator{
 
                 while(randomNote == 0) {
                     randomNote = new Random().nextInt(validNotes.length);
-                    System.out.println("Random number was 0");
+                    //System.out.println("Random number was 0");
                 }
 
                 //Have to play note 60 for the music theory to be correct
@@ -255,11 +264,17 @@ public abstract class MusicGenerator{
                 //Setting previous note as the random note so the next markov chain state can generate valid notes
 
                 previousNote = validNotes[randomNote];
-                System.out.println("Previous note: " + previousNote);
+
+                notesPlayed[countNote] = validNotes[randomNote];
                 countNote++;
             }
         }//End while
         System.out.println("Display save dialog");
+        for(int i = 0; i<24; i++){
+            System.out.println(notesPlayed[i]);
+            midiChannelMG.noteOn(notesPlayed[i],50);
+        }
+
     }//End generateMusic
 
     //These methods will play a Chord(3 notes)

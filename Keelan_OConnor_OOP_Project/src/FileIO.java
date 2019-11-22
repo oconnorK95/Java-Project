@@ -35,13 +35,7 @@ public abstract class FileIO {
     }//End saveMusic
 
 
-    //public Sequence getSequence1() {
-    //    return sequence1;
-   // }
-    //public void setSequence1(Sequence sequence1) {
-    //    this.sequence1 = sequence1;
-    //}
-    /*
+   /*
     try{
             //PPQ = pulses per quarter, Resolution = timing
             sequence1 = new Sequence(Sequence.PPQ, 10);
