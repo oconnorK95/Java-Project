@@ -26,12 +26,9 @@ public abstract class MusicGenerator{
     //         60,62,64,65,67,69,71,72
     //C MAJOR  C, D, E, F, G, A, B, C
 
-//TODO Fix logical error that only allows notes to increase in pitch, should also decrease
-//TODO use thread(wait time variable) to create rhythm
+//TODO Fix logical error: Loop cant handle notes outside cMajor >72
     //This method will generate notes, the note played determines which notes can play next
     public void generateMusic() {
-        //this.midiChannelMG = midiChannelMG;
-        //this.synthesizerMG = synthesizerMG;
 
         //Attempts to define synthesizer and midi channel
         try{
@@ -88,10 +85,11 @@ public abstract class MusicGenerator{
             else if (previousNote == 62 && countNote <= 24) {
             //D CHORD
                 System.out.println("Note of D Chord played");
-                validNotes = null; //Empty the array of previous elements
-                validNotes[0] = 60;
-                validNotes[1] = 64;
-                validNotes[2] = 67;
+               // validNotes = null; //Empty the array of previous elements
+
+                validNotes[0] = 60;//C
+                validNotes[1] = 64;//E
+                validNotes[2] = 67;//G
 
                 validNotes[3] = 62;//D
                 validNotes[4] = 65;//F
@@ -114,13 +112,12 @@ public abstract class MusicGenerator{
                 //E CHORD
                 System.out.println("Note of E Chord played");
                 //validNotes = null; //Empty the array of previous elements
-                validNotes[0] = 64; //E
-                validNotes[1] = 67; //G
-                validNotes[2] = 71; //B
-
-                validNotes[3] = 62;//D
-                validNotes[4] = 65;//F
-                validNotes[5] = 69;//A
+                validNotes[0] = 60; //C
+                validNotes[1] = 64; //E
+                validNotes[2] = 67; //G
+                validNotes[3] = 71; //B
+                validNotes[4] = 62;//D
+                validNotes[5] = 65;//F
 
                 //Generate random note to play
                 //This while statement prevents the music generator loop from accepting a "0" which cannot be played
@@ -130,20 +127,20 @@ public abstract class MusicGenerator{
                 }
 
                 midiChannelMG.noteOn(validNotes[randomNote], 50);
+                previousNote = validNotes[randomNote];
                 System.out.println(validNotes[randomNote]);
                 countNote++;
             }//End if
             else if (previousNote == 65 && countNote <= 24) {
                 //F CHORD
                 System.out.println("Note of F Chord played");
-                validNotes = null; //Empty the array of previous elements
-                validNotes[0] = 65; //F
-                validNotes[1] = 69; //A
-                validNotes[2] = 72; //C
-
-                validNotes[3] = 64; //E
-                validNotes[4] = 67; //G
-                validNotes[5] = 71; //B
+                //validNotes = null; //Empty the array of previous elements
+                validNotes[0] = 62; //D
+                validNotes[1] = 65; //F
+                validNotes[2] = 69; //A
+                validNotes[3] = 72; //C
+                validNotes[4] = 64; //E
+                validNotes[5] = 67; //G
 
                 //Generate random note to play
                 //This while statement prevents the music generator loop from accepting a "0" which cannot be played
@@ -154,19 +151,20 @@ public abstract class MusicGenerator{
 
                 midiChannelMG.noteOn(validNotes[randomNote], 50);
                 System.out.println(validNotes[randomNote]);
+                previousNote = validNotes[randomNote];
                 countNote++;
             }//End if
             else if (previousNote == 67 && countNote <= 24) {
                 //G CHORD
                 System.out.println("Note of G Chord played");
                 //validNotes = null; //Empty the array of previous elements
+                validNotes[0] = 64; //E
                 validNotes[0] = 67; //G
                 validNotes[1] = 71; //B
                 validNotes[2] = 74; //high D
-
                 validNotes[3] = 65; //F
                 validNotes[4] = 69; //A
-                validNotes[5] = 72; //C
+
 
                 //Generate random note to play
                 //This while statement prevents the music generator loop from accepting a "0" which cannot be played
@@ -177,15 +175,20 @@ public abstract class MusicGenerator{
 
                 midiChannelMG.noteOn(validNotes[randomNote], 50);
                 System.out.println(validNotes[randomNote]);
+                previousNote = validNotes[randomNote];
                 countNote++;
             }//End if
             else if (previousNote == 69 && countNote <= 24) {
                 //A CHORD
                 System.out.println("Note of A Chord played");
-                validNotes = null; //Empty the array of previous elements
+                //validNotes = null; //Empty the array of previous elements
                 validNotes[0] = 69; //A
                 validNotes[1] = 72; //C
                 validNotes[2] = 76; //high E
+                validNotes[3] = 65; //F
+                validNotes[4] = 67; //F
+                validNotes[5] = 60; //F
+
 
                 //Generate random note to play
                 //This while statement prevents the music generator loop from accepting a "0" which cannot be played
@@ -196,15 +199,20 @@ public abstract class MusicGenerator{
 
                 midiChannelMG.noteOn(validNotes[randomNote], 50);
                 System.out.println(validNotes[randomNote]);
+                previousNote = validNotes[randomNote];
                 countNote++;
             }//End if
             else if (previousNote == 71 && countNote <= 24) {
                 //B CHORD
                 System.out.println("Note of B Chord played");
-                validNotes = null; //Empty the array of previous elements
+               // validNotes = null; //Empty the array of previous elements
+
                 validNotes[0] = 71; //B
                 validNotes[1] = 74; //D
-                validNotes[2] = 77; //F
+                validNotes[2] = 77; //
+                validNotes[3] = 69; //A
+                validNotes[4] = 65; //F
+                validNotes[5] = 60; //C
 
                 //Generate random note to play
                 //This while statement prevents the music generator loop from accepting a "0" which cannot be played
@@ -215,9 +223,43 @@ public abstract class MusicGenerator{
 
                 midiChannelMG.noteOn(randomNote, 50);
                 System.out.println(validNotes[randomNote]);
+                previousNote = validNotes[randomNote];
                 countNote++;
             }//End if
+            else{
+                //C CHORD
+                System.out.println("Note of C Chord played");
+                //validNotes = null; //Empty the array of previous elements
+                validNotes[0] = 60; //C
+                validNotes[1] = 64; //E
+                validNotes[2] = 67; //G
+
+                validNotes[3] = 60; //C
+                validNotes[4] = 64; //E
+                validNotes[5] = 67; //G
+
+                //Generate random note to play
+                //This while statement prevents the music generator loop from accepting a "0" which cannot be played
+                int randomNote = 0;
+
+                while(randomNote == 0) {
+                    randomNote = new Random().nextInt(validNotes.length);
+                    System.out.println("Random number was 0");
+                }
+
+                //Have to play note 60 for the music theory to be correct
+                midiChannelMG.noteOn(60, 50);
+
+                //Play note(X, with force Y)
+                midiChannelMG.noteOn(validNotes[randomNote], 50);
+                //Setting previous note as the random note so the next markov chain state can generate valid notes
+
+                previousNote = validNotes[randomNote];
+                System.out.println("Previous note: " + previousNote);
+                countNote++;
+            }
         }//End while
+        System.out.println("Display save dialog");
     }//End generateMusic
 
     //These methods will play a Chord(3 notes)

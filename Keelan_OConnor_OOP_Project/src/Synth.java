@@ -27,7 +27,7 @@ public class Synth extends MusicGenerator{
         };
 
 
-        musicGenerator.generateMusic();
+
 
 
         int velocity = 50; //The speed the note is played at, low is soft high is hard
@@ -93,7 +93,10 @@ public class Synth extends MusicGenerator{
         submenu1 = new JMenuItem("Chords");
         submenu2 = new JMenuItem("Notes");
         menuBar1.add(menu1);
-        menu1.add(submenu1, submenu2);
+        menu1.add(submenu1);
+        menu1.addSeparator();
+        menu1.add(submenu2);
+        menu1.addSeparator();
         frame1.add(menuBar1);
 
         //Auto generated lambda from action listener
@@ -116,9 +119,9 @@ public class Synth extends MusicGenerator{
         button8.addActionListener(e -> finalMidiChannel.noteOn(cMajor[7], velocity));
         button8.addActionListener(e -> System.out.println("C Major C: " + cMajor[7]));
 
-        //JButton button9 = new JButton("Play Chords");
-        //frame1.add(button9);
-
+        JButton button9 = new JButton("Generate Random Music");
+        frame1.add(button9);
+        button9.addActionListener(e -> musicGenerator.generateMusic());
 
         frame1.add(panel1);
         frame1.add(textPane1);
