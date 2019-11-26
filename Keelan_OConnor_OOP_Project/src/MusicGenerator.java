@@ -2,6 +2,11 @@ import javax.sound.midi.MidiChannel;
 import javax.sound.midi.MidiSystem;
 import javax.sound.midi.MidiUnavailableException;
 import javax.sound.midi.Synthesizer;
+import javax.swing.*;
+
+import java.io.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Random;
 
 //While this class does have a massive amount of code, the methods contain many loops of repeated code
@@ -12,7 +17,7 @@ import java.util.Random;
 //TODO Generate bass line to supplement the treble (need new channel?)
 //TODO Write a music save method
 //TODO Write a music read method
-public abstract class MusicGenerator{
+public abstract class MusicGenerator implements Serializable {
 
     int previousNote = 60; //This must be 60(C), as it is the first note of the key
     int[] validNotes = new int[6];  //Stores the notes currently playable, added removed throughout loop
@@ -25,7 +30,7 @@ public abstract class MusicGenerator{
     //C MAJOR  C, D, E, F, G, A, B, C
 
     //This method will generate notes, the note played determines which notes can play next
-    public void generateMusic() {
+    public void generateMusic() throws IOException {
 
         //Attempts to define synthesizer and midi channel
         try{
@@ -265,14 +270,32 @@ public abstract class MusicGenerator{
 
                 previousNote = validNotes[randomNote];
 
+                //Adding all played notes to an array for storage
                 notesPlayed[countNote] = validNotes[randomNote];
                 countNote++;
+
             }
+
         }//End while
         System.out.println("Display save dialog");
         for(int i = 0; i<24; i++){
             System.out.println(notesPlayed[i]);
             midiChannelMG.noteOn(notesPlayed[i],50);
+        }
+        //Option dialog to save music
+        int yesNo = JOptionPane.showConfirmDialog(null, "Would you like to save this midi?","Save", JOptionPane.YES_NO_CANCEL_OPTION);
+        if(yesNo == JOptionPane.YES_OPTION){
+            //save
+            try(FileOutputStream fileOut = new FileOutputStream("midi.txt");
+
+                ObjectOutput objOut = new ObjectOutputStream(fileOut)) {
+                objOut.writeObject(notesPlayed);
+
+            }
+
+        }
+        else{
+            //Dont save
         }
 
     }//End generateMusic

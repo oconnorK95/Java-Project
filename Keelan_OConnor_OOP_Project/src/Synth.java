@@ -2,6 +2,7 @@ import javax.sound.midi.*;
 import javax.sound.midi.Synthesizer; //TODO delete unneeded imports
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 
 //TODO Delete anything that is never used
 
@@ -21,7 +22,7 @@ public class Synth extends MusicGenerator{
 
         MusicGenerator musicGenerator;
         musicGenerator = new MusicGenerator() {
-            public void generateMusic() {
+            public void generateMusic() throws IOException {
                 super.generateMusic();
             }
         };
@@ -118,7 +119,13 @@ public class Synth extends MusicGenerator{
 
         JButton button9 = new JButton("Generate Random Music");
         frame1.add(button9);
-        button9.addActionListener(e -> musicGenerator.generateMusic());
+        button9.addActionListener(e -> {
+            try {
+                musicGenerator.generateMusic();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
 
         JButton button10 = new JButton("Record");
         frame1.add(button10);
