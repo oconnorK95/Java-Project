@@ -26,7 +26,7 @@ public abstract class MusicGenerator implements Serializable {
     public void generateMusic() throws IOException {
 
         //Attempts to define synthesizer and midi channel
-        try{
+        try {
             synthesizerMG = MidiSystem.getSynthesizer();
             synthesizerMG.open();
             midiChannelMG = synthesizerMG.getChannels()[15];
@@ -35,11 +35,15 @@ public abstract class MusicGenerator implements Serializable {
             System.out.println("Music generator catch triggered.");
         }
         //TODO MAKE CHORDS PLAYABLE +-+-+-+-+-+-+-+-+-
+        //TODO Make chords playable on menu
 
-        //TODO SWITCH?
+        //NOTE: I swapped the loop below with a Switch statement as suggested, however the loop lost almost all its
+        // functionality as it was no longer able to make decisions, instead it just played a note from each case until
+        // completion.
+
         //Ensuring the first valid note is C
         validNotes[0] = 60;
-        while(countNote < 24) {
+        while (countNote < 24) {
             try {
                 Thread.sleep(250);
             } catch (InterruptedException e) {
@@ -48,59 +52,53 @@ public abstract class MusicGenerator implements Serializable {
             if (previousNote == 60 && countNote <= 24) {
                 //C CHORD
                 System.out.println("Note of C Chord played");
-                //validNotes = null; //Empty the array of previous elements
                 validNotes[0] = 60; //C
                 validNotes[1] = 64; //E
                 validNotes[2] = 67; //G
-
                 validNotes[3] = 60; //C
                 validNotes[4] = 64; //E
                 validNotes[5] = 67; //G
 
                 //Generate random note to play
-                //This while statement prevents the music generator loop from accepting a "0" which cannot be played
+                //This while statement prevents the music generator loop from accepting a "0"
                 int randomNote = 0;
-
-                while(randomNote == 0) {
+                while (randomNote == 0) {
                     randomNote = new Random().nextInt(validNotes.length);
-                    //System.out.println("Random number was 0");
-                }
+                }//End while
 
                 //Have to play note 60 for the music theory to be correct
                 midiChannelMG.noteOn(60, 50);
 
                 //Play note(X, with force Y)
                 midiChannelMG.noteOn(validNotes[randomNote], 50);
-                //Setting previous note as the random note so the next markov chain state can generate valid notes
 
+                //Setting previous note as the random note so the next markov chain state can generate valid notes
                 previousNote = validNotes[randomNote];
-                //System.out.println("Previous note: " + previousNote);
+
+                //Storing array of notes played, the index at count note is the current note
                 notesPlayed[countNote] = validNotes[randomNote];
                 countNote++;
             }//End if
             else if (previousNote == 62 && countNote <= 24) {
-            //D CHORD
+                //D CHORD
                 System.out.println("Note of D Chord played");
-
                 validNotes[0] = 60;//C
                 validNotes[1] = 64;//E
                 validNotes[2] = 67;//G
-
                 validNotes[3] = 62;//D
                 validNotes[4] = 65;//F
                 validNotes[5] = 69;//A
 
                 //Generate random note to play
-                //This while statement prevents the music generator loop from accepting a "0" which cannot be played
+                //This while statement prevents the music generator loop from accepting a "0"
                 int randomNote = 0;
-                while(randomNote == 0) {
+                while (randomNote == 0) {
                     randomNote = new Random().nextInt(validNotes.length);
-                }
+                }//End while
 
                 midiChannelMG.noteOn(validNotes[randomNote], 50);
-                System.out.println(validNotes[randomNote]);
+
                 previousNote = validNotes[randomNote];
-                //System.out.println(previousNote);
 
                 notesPlayed[countNote] = validNotes[randomNote];
                 countNote++;
@@ -108,7 +106,6 @@ public abstract class MusicGenerator implements Serializable {
             else if (previousNote == 64 && countNote <= 24) {
                 //E CHORD
                 System.out.println("Note of E Chord played");
-                //validNotes = null; //Empty the array of previous elements
                 validNotes[0] = 60; //C
                 validNotes[1] = 64; //E
                 validNotes[2] = 67; //G
@@ -117,15 +114,15 @@ public abstract class MusicGenerator implements Serializable {
                 validNotes[5] = 65;//F
 
                 //Generate random note to play
-                //This while statement prevents the music generator loop from accepting a "0" which cannot be played
+                //This while statement prevents the music generator loop from accepting a "0"
                 int randomNote = 0;
-                while(randomNote == 0) {
+                while (randomNote == 0) {
                     randomNote = new Random().nextInt(validNotes.length);
-                }
+                }//End while
 
                 midiChannelMG.noteOn(validNotes[randomNote], 50);
+
                 previousNote = validNotes[randomNote];
-                System.out.println(validNotes[randomNote]);
 
                 notesPlayed[countNote] = validNotes[randomNote];
                 countNote++;
@@ -133,7 +130,6 @@ public abstract class MusicGenerator implements Serializable {
             else if (previousNote == 65 && countNote <= 24) {
                 //F CHORD
                 System.out.println("Note of F Chord played");
-                //validNotes = null; //Empty the array of previous elements
                 validNotes[0] = 62; //D
                 validNotes[1] = 65; //F
                 validNotes[2] = 69; //A
@@ -142,14 +138,14 @@ public abstract class MusicGenerator implements Serializable {
                 validNotes[5] = 67; //G
 
                 //Generate random note to play
-                //This while statement prevents the music generator loop from accepting a "0" which cannot be played
+                //This while statement prevents the music generator loop from accepting a "0"
                 int randomNote = 0;
-                while(randomNote == 0) {
+                while (randomNote == 0) {
                     randomNote = new Random().nextInt(validNotes.length);
-                }
+                }//End while
 
                 midiChannelMG.noteOn(validNotes[randomNote], 50);
-                System.out.println(validNotes[randomNote]);
+
                 previousNote = validNotes[randomNote];
 
                 notesPlayed[countNote] = validNotes[randomNote];
@@ -158,24 +154,22 @@ public abstract class MusicGenerator implements Serializable {
             else if (previousNote == 67 && countNote <= 24) {
                 //G CHORD
                 System.out.println("Note of G Chord played");
-
-                validNotes[0] = 64; //E
                 validNotes[0] = 67; //G
                 validNotes[1] = 71; //B
                 validNotes[2] = 74; //high D
                 validNotes[3] = 65; //F
                 validNotes[4] = 69; //A
-
+                validNotes[5] = 64; //E
 
                 //Generate random note to play
-                //This while statement prevents the music generator loop from accepting a "0" which cannot be played
+                //This while statement prevents the music generator loop from accepting a "0"
                 int randomNote = 0;
-                while(randomNote == 0) {
+                while (randomNote == 0) {
                     randomNote = new Random().nextInt(validNotes.length);
-                }
+                }//End while
 
                 midiChannelMG.noteOn(validNotes[randomNote], 50);
-                System.out.println(validNotes[randomNote]);
+
                 previousNote = validNotes[randomNote];
 
                 notesPlayed[countNote] = validNotes[randomNote];
@@ -191,16 +185,15 @@ public abstract class MusicGenerator implements Serializable {
                 validNotes[4] = 67; //F
                 validNotes[5] = 60; //F
 
-
                 //Generate random note to play
-                //This while statement prevents the music generator loop from accepting a "0" which cannot be played
+                //This while statement prevents the music generator loop from accepting a "0"
                 int randomNote = 0;
-                while(randomNote == 0) {
+                while (randomNote == 0) {
                     randomNote = new Random().nextInt(validNotes.length);
-                }
+                }//End while
 
                 midiChannelMG.noteOn(validNotes[randomNote], 50);
-                System.out.println(validNotes[randomNote]);
+
                 previousNote = validNotes[randomNote];
 
                 notesPlayed[countNote] = validNotes[randomNote];
@@ -209,7 +202,6 @@ public abstract class MusicGenerator implements Serializable {
             else if (previousNote == 71 && countNote <= 24) {
                 //B CHORD
                 System.out.println("Note of B Chord played");
-
                 validNotes[0] = 71; //B
                 validNotes[1] = 74; //D
                 validNotes[2] = 77; //
@@ -218,39 +210,35 @@ public abstract class MusicGenerator implements Serializable {
                 validNotes[5] = 60; //C
 
                 //Generate random note to play
-                //This while statement prevents the music generator loop from accepting a "0" which cannot be played
+                //This while statement prevents the music generator loop from accepting a "0"
                 int randomNote = 0;
-                while(randomNote == 0) {
+                while (randomNote == 0) {
                     randomNote = new Random().nextInt(validNotes.length);
-                }
+                }//End while
 
                 midiChannelMG.noteOn(randomNote, 50);
-                System.out.println(validNotes[randomNote]);
+
                 previousNote = validNotes[randomNote];
 
                 notesPlayed[countNote] = validNotes[randomNote];
                 countNote++;
             }//End if
-            else{
+            else {
                 //C CHORD
                 System.out.println("Note of C Chord played");
-
                 validNotes[0] = 60; //C
                 validNotes[1] = 64; //E
                 validNotes[2] = 67; //G
-
                 validNotes[3] = 60; //C
                 validNotes[4] = 64; //E
                 validNotes[5] = 67; //G
 
                 //Generate random note to play
-                //This while statement prevents the music generator loop from accepting a "0" which cannot be played
+                //This while statement prevents the music generator loop from accepting a "0"
                 int randomNote = 0;
-
-                while(randomNote == 0) {
+                while (randomNote == 0) {
                     randomNote = new Random().nextInt(validNotes.length);
-                    //System.out.println("Random number was 0");
-                }
+                }//End while
 
                 //Have to play note 60 for the music theory to be correct
                 midiChannelMG.noteOn(60, 50);
@@ -264,39 +252,38 @@ public abstract class MusicGenerator implements Serializable {
                 //Adding all played notes to an array for storage
                 notesPlayed[countNote] = validNotes[randomNote];
                 countNote++;
-
-            }
+            }//End else
 
         }//End while
         System.out.println("Display save dialog");
-        for(int i = 0; i<24; i++){
+        for (int i = 0; i < 24; i++) {
             System.out.println(notesPlayed[i]);
-            midiChannelMG.noteOn(notesPlayed[i],50);
+            midiChannelMG.noteOn(notesPlayed[i], 50);
         }
         //Option dialog to save music
-        int yesNo = JOptionPane.showConfirmDialog(null, "Would you like to save this midi?","Save", JOptionPane.YES_NO_CANCEL_OPTION);
-        if(yesNo == JOptionPane.YES_OPTION){
+        int yesNo = JOptionPane.showConfirmDialog(null, "Would you like to save this midi?",
+                "Save", JOptionPane.YES_NO_CANCEL_OPTION);
+        if (yesNo == JOptionPane.YES_OPTION) {
 
             //If yes, create a file to store the midi
-            try(FileOutputStream fileOut = new FileOutputStream("midi.txt");
-                ObjectOutput objOut = new ObjectOutputStream(fileOut)) {
+            try (FileOutputStream fileOut = new FileOutputStream("midi.txt");
+                 ObjectOutput objOut = new ObjectOutputStream(fileOut)) {
                 //write notesPlayed array to the file
                 objOut.writeObject(notesPlayed);
                 //Set countNote to zero so the loop can repeat
                 countNote = 0;
             }//End OutputStream
 
-        }
-        else{
-            //Dont save
+        }//End if
+        else {
+            System.out.println("Midi will not save");
         }//End else
-
     }//End generateMusic
 
     //These methods will play a Chord(3 notes)
-    public void playChordC(){
+    public void playChordC() {
         //Attempt to set up Synthesizer and Midi Channel
-        try{
+        try {
             synthesizerMG = MidiSystem.getSynthesizer();
             synthesizerMG.open();
             midiChannelMG = synthesizerMG.getChannels()[15];
@@ -305,13 +292,14 @@ public abstract class MusicGenerator implements Serializable {
             System.out.println("Music generator catch triggered.");
         }
         //Play note(C with 50 force), (E with 50 force) and (G with 50 force)
-        midiChannelMG.noteOn(60,50);
-        midiChannelMG.noteOn(64,50);
-        midiChannelMG.noteOn(67,50);
+        midiChannelMG.noteOn(60, 50);
+        midiChannelMG.noteOn(64, 50);
+        midiChannelMG.noteOn(67, 50);
         System.out.println("Played C");
     }
-    public void playChordD(){
-        try{
+
+    public void playChordD() {
+        try {
             synthesizerMG = MidiSystem.getSynthesizer();
             synthesizerMG.open();
             midiChannelMG = synthesizerMG.getChannels()[15];
@@ -319,13 +307,14 @@ public abstract class MusicGenerator implements Serializable {
             e.printStackTrace();
             System.out.println("Music generator catch triggered.");
         }
-        midiChannelMG.noteOn(62,50);
-        midiChannelMG.noteOn(65,50);
-        midiChannelMG.noteOn(69,50);
+        midiChannelMG.noteOn(62, 50);
+        midiChannelMG.noteOn(65, 50);
+        midiChannelMG.noteOn(69, 50);
         System.out.println("Played D");
     }
-    public void playChordE(){
-        try{
+
+    public void playChordE() {
+        try {
             synthesizerMG = MidiSystem.getSynthesizer();
             synthesizerMG.open();
             midiChannelMG = synthesizerMG.getChannels()[15];
@@ -333,13 +322,14 @@ public abstract class MusicGenerator implements Serializable {
             e.printStackTrace();
             System.out.println("Music generator catch triggered.");
         }
-        midiChannelMG.noteOn(64,50);
-        midiChannelMG.noteOn(67,50);
-        midiChannelMG.noteOn(71,50);
+        midiChannelMG.noteOn(64, 50);
+        midiChannelMG.noteOn(67, 50);
+        midiChannelMG.noteOn(71, 50);
         System.out.println("Played E");
     }
-    public void playChordF(){
-        try{
+
+    public void playChordF() {
+        try {
             synthesizerMG = MidiSystem.getSynthesizer();
             synthesizerMG.open();
             midiChannelMG = synthesizerMG.getChannels()[15];
@@ -347,13 +337,14 @@ public abstract class MusicGenerator implements Serializable {
             e.printStackTrace();
             System.out.println("Music generator catch triggered.");
         }
-        midiChannelMG.noteOn(65,50);
-        midiChannelMG.noteOn(69,50);
-        midiChannelMG.noteOn(72,50);
+        midiChannelMG.noteOn(65, 50);
+        midiChannelMG.noteOn(69, 50);
+        midiChannelMG.noteOn(72, 50);
         System.out.println("Played F");
     }
-    public void playChordG(){
-        try{
+
+    public void playChordG() {
+        try {
             synthesizerMG = MidiSystem.getSynthesizer();
             synthesizerMG.open();
             midiChannelMG = synthesizerMG.getChannels()[15];
@@ -361,13 +352,14 @@ public abstract class MusicGenerator implements Serializable {
             e.printStackTrace();
             System.out.println("Music generator catch triggered.");
         }
-        midiChannelMG.noteOn(67,50);
-        midiChannelMG.noteOn(71,50);
-        midiChannelMG.noteOn(74,50);
+        midiChannelMG.noteOn(67, 50);
+        midiChannelMG.noteOn(71, 50);
+        midiChannelMG.noteOn(74, 50);
         System.out.println("Played G");
     }
-    public void playChordA(){
-        try{
+
+    public void playChordA() {
+        try {
             synthesizerMG = MidiSystem.getSynthesizer();
             synthesizerMG.open();
             midiChannelMG = synthesizerMG.getChannels()[15];
@@ -375,13 +367,14 @@ public abstract class MusicGenerator implements Serializable {
             e.printStackTrace();
             System.out.println("Music generator catch triggered.");
         }
-        midiChannelMG.noteOn(69,50);
-        midiChannelMG.noteOn(72,50);
-        midiChannelMG.noteOn(76,50);
+        midiChannelMG.noteOn(69, 50);
+        midiChannelMG.noteOn(72, 50);
+        midiChannelMG.noteOn(76, 50);
         System.out.println("Played A");
     }
-    public void playChordB(){
-        try{
+
+    public void playChordB() {
+        try {
             synthesizerMG = MidiSystem.getSynthesizer();
             synthesizerMG.open();
             midiChannelMG = synthesizerMG.getChannels()[15];
@@ -389,13 +382,14 @@ public abstract class MusicGenerator implements Serializable {
             e.printStackTrace();
             System.out.println("Music generator catch triggered.");
         }
-        midiChannelMG.noteOn(71,50);
-        midiChannelMG.noteOn(74,50);
-        midiChannelMG.noteOn(77,50);
+        midiChannelMG.noteOn(71, 50);
+        midiChannelMG.noteOn(74, 50);
+        midiChannelMG.noteOn(77, 50);
         System.out.println("Played B");
     }
-    public void playChordHighC(){
-        try{
+
+    public void playChordHighC() {
+        try {
             synthesizerMG = MidiSystem.getSynthesizer();
             synthesizerMG.open();
             midiChannelMG = synthesizerMG.getChannels()[15];
@@ -403,31 +397,89 @@ public abstract class MusicGenerator implements Serializable {
             e.printStackTrace();
             System.out.println("Music generator catch triggered.");
         }
-        midiChannelMG.noteOn(72,50);
-        midiChannelMG.noteOn(74,50);
-        midiChannelMG.noteOn(76,50);
+        midiChannelMG.noteOn(72, 50);
+        midiChannelMG.noteOn(74, 50);
+        midiChannelMG.noteOn(76, 50);
         System.out.println("Played High C");
     }//End playHighC
 
     //This method uses a thread to loop through all the chords of C major
-    public void playAllChords(){
-        for(int i = 0; i<8; i++) {
-            try{
+    public void playAllChords() {
+        for (int i = 0; i < 8; i++) {
+            try {
                 Thread.sleep(500);
-            }
-            catch (InterruptedException e) {
+            } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            if(i==0){playChordA();}
-            if(i==1){playChordB();}
-            if(i==2){playChordC();}
-            if(i==3){playChordD();}
-            if(i==4){playChordE();}
-            if(i==5){playChordF();}
-            if(i==6){playChordG();}
-            if(i==7){playChordHighC();}
+            if (i == 0) {
+                playChordA();
+            }
+            if (i == 1) {
+                playChordB();
+            }
+            if (i == 2) {
+                playChordC();
+            }
+            if (i == 3) {
+                playChordD();
+            }
+            if (i == 4) {
+                playChordE();
+            }
+            if (i == 5) {
+                playChordF();
+            }
+            if (i == 6) {
+                playChordG();
+            }
+            if (i == 7) {
+                playChordHighC();
+            }
         }//End for
     }//End PlayAllChords
 
+    //This method uses a thread to loop through all the notes of C major
+    public void playAllNotes() {
+        //Attempt to set up Synthesizer and Midi Channel
+        try {
+            synthesizerMG = MidiSystem.getSynthesizer();
+            synthesizerMG.open();
+            midiChannelMG = synthesizerMG.getChannels()[15];
+        } catch (MidiUnavailableException e) {
+            e.printStackTrace();
+            System.out.println("Music generator catch triggered.");
+        }
+        for (int i = 0; i < 8; i++) {
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            if (i == 0) {
+                midiChannelMG.noteOn(60, 50);
+            }
+            if (i == 1) {
+                midiChannelMG.noteOn(62, 50);
+            }
+            if (i == 2) {
+                midiChannelMG.noteOn(64, 50);
+            }
+            if (i == 3) {
+                midiChannelMG.noteOn(65, 50);
+            }
+            if (i == 4) {
+                midiChannelMG.noteOn(67, 50);
+            }
+            if (i == 5) {
+                midiChannelMG.noteOn(69, 50);
+            }
+            if (i == 6) {
+                midiChannelMG.noteOn(71, 50);
+            }
+            if (i == 7) {
+                midiChannelMG.noteOn(72, 50);
+            }
+        }//End for
+    }//End playAllNotes
 
 }//End MusicGenerator

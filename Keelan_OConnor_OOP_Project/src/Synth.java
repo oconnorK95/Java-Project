@@ -2,6 +2,8 @@ import javax.sound.midi.*;
 import javax.sound.midi.Synthesizer; //TODO delete unneeded imports
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 
 //TODO Delete anything that is never used
@@ -115,6 +117,10 @@ public class Synth extends MusicGenerator{
         button7.addActionListener(e -> System.out.println("C Major B: " + cMajor[6]));
         button8.addActionListener(e -> finalMidiChannel.noteOn(cMajor[7], velocity));
         button8.addActionListener(e -> System.out.println("C Major C: " + cMajor[7]));
+
+        //Allows the "chord" submenu item to play chords
+        submenu1.addActionListener(e -> musicGenerator.playAllChords());
+        submenu2.addActionListener(e -> musicGenerator.playAllNotes());
 
         JButton button9 = new JButton("Generate Random Music");
         frame1.add(button9);
