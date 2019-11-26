@@ -4,6 +4,7 @@ import javax.sound.midi.MidiUnavailableException;
 import javax.sound.midi.Synthesizer;
 import javax.swing.*;
 import java.io.*;
+import java.util.Arrays;
 import java.util.Random;
 
 
@@ -19,6 +20,10 @@ public abstract class MusicGenerator implements Serializable {
     MidiChannel midiChannelMG; //Setting up the midi channel
     int[] notesPlayed = new int[24];
 
+    //Creating a string builder to write midi
+    StringBuilder stringBuilder1 = new StringBuilder();
+    String strLine = "";
+
     //         60,62,64,65,67,69,71,72
     //C MAJOR  C, D, E, F, G, A, B, C
 
@@ -33,9 +38,7 @@ public abstract class MusicGenerator implements Serializable {
         } catch (MidiUnavailableException e) {
             e.printStackTrace();
             System.out.println("Music generator catch triggered.");
-        }
-        //TODO MAKE CHORDS PLAYABLE +-+-+-+-+-+-+-+-+-
-        //TODO Make chords playable on menu
+        }//End catch
 
         //NOTE: I swapped the loop below with a Switch statement as suggested, however the loop lost almost all its
         // functionality as it was no longer able to make decisions, instead it just played a note from each case until
@@ -266,13 +269,19 @@ public abstract class MusicGenerator implements Serializable {
         if (yesNo == JOptionPane.YES_OPTION) {
 
             //If yes, create a file to store the midi
-            try (FileOutputStream fileOut = new FileOutputStream("midi.txt");
-                 ObjectOutput objOut = new ObjectOutputStream(fileOut)) {
-                //write notesPlayed array to the file
-                objOut.writeObject(notesPlayed);
+            try {
+                String fileName = "midi.txt";
+                //Overwrite the last midi
+                FileWriter fileWriter1 = new FileWriter(fileName,false);
+
+                fileWriter1.write(Arrays.toString(notesPlayed));
+                fileWriter1.close();
                 //Set countNote to zero so the loop can repeat
                 countNote = 0;
-            }//End OutputStream
+            }//End Try
+            catch (IOException e) {
+                e.printStackTrace();
+            }//End catch
 
         }//End if
         else {
@@ -280,6 +289,23 @@ public abstract class MusicGenerator implements Serializable {
         }//End else
     }//End generateMusic
 
+    public void readMidi() throws IOException {
+        BufferedReader bufferedReader1 = new BufferedReader(new FileReader("midi.txt"));
+        //While there is something to read
+        while(strLine != null){
+
+            for(int i = 0; i<strLine.length();i++){
+                //midiChannelMG.noteOn(,50 );
+            }
+
+            stringBuilder1.append(strLine);
+            stringBuilder1.append(System.lineSeparator());
+            strLine = bufferedReader1.readLine();
+            System.out.println(strLine);
+        }//End while
+    }//End readMidi
+
+    //<editor-fold desc="Play Chords + Notes">
     //These methods will play a Chord(3 notes)
     public void playChordC() {
         //Attempt to set up Synthesizer and Midi Channel
@@ -290,13 +316,13 @@ public abstract class MusicGenerator implements Serializable {
         } catch (MidiUnavailableException e) {
             e.printStackTrace();
             System.out.println("Music generator catch triggered.");
-        }
+        }//End catch
         //Play note(C with 50 force), (E with 50 force) and (G with 50 force)
         midiChannelMG.noteOn(60, 50);
         midiChannelMG.noteOn(64, 50);
         midiChannelMG.noteOn(67, 50);
         System.out.println("Played C");
-    }
+    }//End Chord C
 
     public void playChordD() {
         try {
@@ -306,12 +332,12 @@ public abstract class MusicGenerator implements Serializable {
         } catch (MidiUnavailableException e) {
             e.printStackTrace();
             System.out.println("Music generator catch triggered.");
-        }
+        }//End catch
         midiChannelMG.noteOn(62, 50);
         midiChannelMG.noteOn(65, 50);
         midiChannelMG.noteOn(69, 50);
         System.out.println("Played D");
-    }
+    }//End Chord D
 
     public void playChordE() {
         try {
@@ -321,12 +347,12 @@ public abstract class MusicGenerator implements Serializable {
         } catch (MidiUnavailableException e) {
             e.printStackTrace();
             System.out.println("Music generator catch triggered.");
-        }
+        }//End catch
         midiChannelMG.noteOn(64, 50);
         midiChannelMG.noteOn(67, 50);
         midiChannelMG.noteOn(71, 50);
         System.out.println("Played E");
-    }
+    }//End Chord E
 
     public void playChordF() {
         try {
@@ -336,12 +362,12 @@ public abstract class MusicGenerator implements Serializable {
         } catch (MidiUnavailableException e) {
             e.printStackTrace();
             System.out.println("Music generator catch triggered.");
-        }
+        }//End catch
         midiChannelMG.noteOn(65, 50);
         midiChannelMG.noteOn(69, 50);
         midiChannelMG.noteOn(72, 50);
         System.out.println("Played F");
-    }
+    }//End Chord F
 
     public void playChordG() {
         try {
@@ -351,12 +377,12 @@ public abstract class MusicGenerator implements Serializable {
         } catch (MidiUnavailableException e) {
             e.printStackTrace();
             System.out.println("Music generator catch triggered.");
-        }
+        }//End catch
         midiChannelMG.noteOn(67, 50);
         midiChannelMG.noteOn(71, 50);
         midiChannelMG.noteOn(74, 50);
         System.out.println("Played G");
-    }
+    }//End Chord G
 
     public void playChordA() {
         try {
@@ -366,12 +392,12 @@ public abstract class MusicGenerator implements Serializable {
         } catch (MidiUnavailableException e) {
             e.printStackTrace();
             System.out.println("Music generator catch triggered.");
-        }
+        }//End catch
         midiChannelMG.noteOn(69, 50);
         midiChannelMG.noteOn(72, 50);
         midiChannelMG.noteOn(76, 50);
         System.out.println("Played A");
-    }
+    }//End Chord A
 
     public void playChordB() {
         try {
@@ -381,12 +407,12 @@ public abstract class MusicGenerator implements Serializable {
         } catch (MidiUnavailableException e) {
             e.printStackTrace();
             System.out.println("Music generator catch triggered.");
-        }
+        }//End catch
         midiChannelMG.noteOn(71, 50);
         midiChannelMG.noteOn(74, 50);
         midiChannelMG.noteOn(77, 50);
         System.out.println("Played B");
-    }
+    }//End Chord B
 
     public void playChordHighC() {
         try {
@@ -396,7 +422,7 @@ public abstract class MusicGenerator implements Serializable {
         } catch (MidiUnavailableException e) {
             e.printStackTrace();
             System.out.println("Music generator catch triggered.");
-        }
+        }//End catch
         midiChannelMG.noteOn(72, 50);
         midiChannelMG.noteOn(74, 50);
         midiChannelMG.noteOn(76, 50);
@@ -480,6 +506,7 @@ public abstract class MusicGenerator implements Serializable {
                 midiChannelMG.noteOn(72, 50);
             }
         }//End for
+        System.out.println("All notes played.");
     }//End playAllNotes
-
+    //</editor-fold>
 }//End MusicGenerator

@@ -143,7 +143,14 @@ public class Synth extends MusicGenerator{
         //TODO list of playable midis
         JButton button12 = new JButton("Play a Recording");
         frame1.add(button12);
-        button12.addActionListener(e -> System.out.println("Play something"));
+        button12.addActionListener(e -> {
+            try {
+                musicGenerator.readMidi();
+            }
+            catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
 
         frame1.add(panel1);
         frame1.add(textPane1);
