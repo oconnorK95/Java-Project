@@ -12,8 +12,8 @@ public class Synth extends MusicGenerator{
     public static void main(String[] args) {
 
 
-        //Declaring a sequencer and synthesizer
-        Sequencer sequencer1; //TODO Use sequencer for something
+        //Declaring a synthesizer and Midi Channel
+
         Synthesizer synthesizer1;
         MidiChannel midiChannel1 = null;  //Midi channels take in midi events for a synthesizer
 
@@ -32,7 +32,6 @@ public class Synth extends MusicGenerator{
         int sound = 50; //Sound is the value of the note played, 50 is D
 
         try{
-            sequencer1 = MidiSystem.getSequencer();
             synthesizer1 = MidiSystem.getSynthesizer(); //Define a synthesizer
             synthesizer1.open(); //Open the synthesizer so it can operate
             System.out.println("Tried successfully.");

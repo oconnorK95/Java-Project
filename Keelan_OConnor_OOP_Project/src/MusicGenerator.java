@@ -3,20 +3,13 @@ import javax.sound.midi.MidiSystem;
 import javax.sound.midi.MidiUnavailableException;
 import javax.sound.midi.Synthesizer;
 import javax.swing.*;
-
 import java.io.*;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Random;
 
-//While this class does have a massive amount of code, the methods contain many loops of repeated code
 
 // "Synthesizer generates sound when its MidiChannels receive noteOn messages."
 // "A hardware or software device that plays back a MIDI sequence is known as a sequencer"
 
-//TODO Generate bass line to supplement the treble (need new channel?)
-//TODO Write a music save method
-//TODO Write a music read method
 public abstract class MusicGenerator implements Serializable {
 
     int previousNote = 60; //This must be 60(C), as it is the first note of the key
@@ -41,8 +34,9 @@ public abstract class MusicGenerator implements Serializable {
             e.printStackTrace();
             System.out.println("Music generator catch triggered.");
         }
+        //TODO MAKE CHORDS PLAYABLE +-+-+-+-+-+-+-+-+-
 
-        //TODO Start sequencer to store the musical notes
+        //TODO SWITCH?
         //Ensuring the first valid note is C
         validNotes[0] = 60;
         while(countNote < 24) {
@@ -87,7 +81,6 @@ public abstract class MusicGenerator implements Serializable {
             else if (previousNote == 62 && countNote <= 24) {
             //D CHORD
                 System.out.println("Note of D Chord played");
-               // validNotes = null; //Empty the array of previous elements
 
                 validNotes[0] = 60;//C
                 validNotes[1] = 64;//E
@@ -165,7 +158,7 @@ public abstract class MusicGenerator implements Serializable {
             else if (previousNote == 67 && countNote <= 24) {
                 //G CHORD
                 System.out.println("Note of G Chord played");
-                //validNotes = null; //Empty the array of previous elements
+
                 validNotes[0] = 64; //E
                 validNotes[0] = 67; //G
                 validNotes[1] = 71; //B
@@ -191,7 +184,6 @@ public abstract class MusicGenerator implements Serializable {
             else if (previousNote == 69 && countNote <= 24) {
                 //A CHORD
                 System.out.println("Note of A Chord played");
-                //validNotes = null; //Empty the array of previous elements
                 validNotes[0] = 69; //A
                 validNotes[1] = 72; //C
                 validNotes[2] = 76; //high E
@@ -217,7 +209,6 @@ public abstract class MusicGenerator implements Serializable {
             else if (previousNote == 71 && countNote <= 24) {
                 //B CHORD
                 System.out.println("Note of B Chord played");
-               // validNotes = null; //Empty the array of previous elements
 
                 validNotes[0] = 71; //B
                 validNotes[1] = 74; //D
@@ -243,7 +234,7 @@ public abstract class MusicGenerator implements Serializable {
             else{
                 //C CHORD
                 System.out.println("Note of C Chord played");
-                //validNotes = null; //Empty the array of previous elements
+
                 validNotes[0] = 60; //C
                 validNotes[1] = 64; //E
                 validNotes[2] = 67; //G
@@ -266,8 +257,8 @@ public abstract class MusicGenerator implements Serializable {
 
                 //Play note(X, with force Y)
                 midiChannelMG.noteOn(validNotes[randomNote], 50);
-                //Setting previous note as the random note so the next markov chain state can generate valid notes
 
+                //Setting previous note as the random note so the next markov chain state can generate valid notes
                 previousNote = validNotes[randomNote];
 
                 //Adding all played notes to an array for storage
@@ -285,18 +276,20 @@ public abstract class MusicGenerator implements Serializable {
         //Option dialog to save music
         int yesNo = JOptionPane.showConfirmDialog(null, "Would you like to save this midi?","Save", JOptionPane.YES_NO_CANCEL_OPTION);
         if(yesNo == JOptionPane.YES_OPTION){
-            //save
+
+            //If yes, create a file to store the midi
             try(FileOutputStream fileOut = new FileOutputStream("midi.txt");
-
                 ObjectOutput objOut = new ObjectOutputStream(fileOut)) {
+                //write notesPlayed array to the file
                 objOut.writeObject(notesPlayed);
-
-            }
+                //Set countNote to zero so the loop can repeat
+                countNote = 0;
+            }//End OutputStream
 
         }
         else{
             //Dont save
-        }
+        }//End else
 
     }//End generateMusic
 
