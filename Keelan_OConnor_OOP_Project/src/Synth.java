@@ -2,26 +2,23 @@ import javax.sound.midi.*;
 import javax.sound.midi.Synthesizer; //TODO delete unneeded imports
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
 import java.io.IOException;
 
-//TODO Delete anything that is never used
-
-//TODO File reading and writing in separate instantiable class
+//Please note, I used editor fold tags to hide large portions of code
 
 public class Synth extends MusicGenerator{
     public static void main(String[] args) {
 
 
         //Declaring a synthesizer and Midi Channel
-
         Synthesizer synthesizer1;
         MidiChannel midiChannel1 = null;  //Midi channels take in midi events for a synthesizer
 
         //                        C, D, E, F, G, A, B, C
         int[] cMajor = new int[] {60,62,64,65,67,69,71,72}; //midiChannel needs to read this in
 
+        //Instantiating my musicGenerator class
         MusicGenerator musicGenerator;
         musicGenerator = new MusicGenerator() {
             public void generateMusic() throws IOException {
@@ -31,18 +28,18 @@ public class Synth extends MusicGenerator{
 
 
         int velocity = 50; //The speed the note is played at, low is soft high is hard
-        int sound = 50; //Sound is the value of the note played, 50 is D
+        //int sound = 50; //Sound is the value of the note played, 50 is D
 
         try{
             synthesizer1 = MidiSystem.getSynthesizer(); //Define a synthesizer
             synthesizer1.open(); //Open the synthesizer so it can operate
-            System.out.println("Tried successfully.");
+            System.out.println("Try executed.");
 
             //The channel is used to create sound
             midiChannel1 = synthesizer1.getChannels()[15]; //Max 16
 
             //Instruments store a sound which can be shifted in pitch
-            Instrument[] allInstruments = synthesizer1.getAvailableInstruments();
+            //Instrument[] allInstruments = synthesizer1.getAvailableInstruments();
         }//End try
 
         //Catch exceptions for unavailable sequencer, synthesizer and channel
@@ -61,7 +58,8 @@ public class Synth extends MusicGenerator{
         //frame1.add(label1);
         JTextPane textPane1 = new JTextPane();
         textPane1.setBounds(1, 1, 200, 200);
-        textPane1.setText("Click on a note in the key of C to play it");
+        textPane1.setText("Click on a note in the key of C to play it.\n" +
+                "Click PLAY on to top left for more options.");
         textPane1.setEditable(false);
         FlowLayout layout = new FlowLayout();
         textPane1.setLayout(layout);

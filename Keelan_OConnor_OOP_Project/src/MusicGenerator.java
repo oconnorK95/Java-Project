@@ -270,14 +270,17 @@ public abstract class MusicGenerator implements Serializable {
 
             //If yes, create a file to store the midi
             try {
+                FileOutputStream fileOutputStream1 = new FileOutputStream("midi.txt");
+                ObjectOutputStream objectOutputStream1 = new ObjectOutputStream(fileOutputStream1);
                 String fileName = "midi.txt";
-                //Overwrite the last midi
-                FileWriter fileWriter1 = new FileWriter(fileName,false);
 
-                fileWriter1.write(Arrays.toString(notesPlayed));
-                fileWriter1.close();
+                //Overwrite the last midi
+                objectOutputStream1.writeObject(notesPlayed);
+                objectOutputStream1.close();
                 //Set countNote to zero so the loop can repeat
                 countNote = 0;
+
+                ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(fileName));
             }//End Try
             catch (IOException e) {
                 e.printStackTrace();
@@ -289,20 +292,19 @@ public abstract class MusicGenerator implements Serializable {
         }//End else
     }//End generateMusic
 
+
     public void readMidi() throws IOException {
-        BufferedReader bufferedReader1 = new BufferedReader(new FileReader("midi.txt"));
-        //While there is something to read
-        while(strLine != null){
+        String fileName = "midi.txt";
+        ObjectInputStream objectInputStream1 = new ObjectInputStream(new FileInputStream(fileName));
 
-            for(int i = 0; i<strLine.length();i++){
-                //midiChannelMG.noteOn(,50 );
+        for(int i = 0; i<notesPlayed.length; i++) {
+            try {
+                Thread.sleep(250);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
-
-            stringBuilder1.append(strLine);
-            stringBuilder1.append(System.lineSeparator());
-            strLine = bufferedReader1.readLine();
-            System.out.println(strLine);
-        }//End while
+            midiChannelMG.noteOn(notesPlayed[i], 50);
+        }//End for
     }//End readMidi
 
     //<editor-fold desc="Play Chords + Notes">
