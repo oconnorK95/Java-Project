@@ -132,11 +132,11 @@ public class Synth extends MusicGenerator{
 
         JButton button10 = new JButton("Record");
         frame1.add(button10);
-        button10.addActionListener(e -> System.out.println("Record Enabled"));
+        button10.addActionListener(e -> System.out.println("Record Enabled (Not yet implemented)"));
 
         JButton button11 = new JButton("Stop Recording");
         frame1.add(button11);
-        button11.addActionListener(e -> System.out.println("Record Finished"));
+        button11.addActionListener(e -> System.out.println("Record Finished (Not yet implemented)"));
 
         //TODO list of playable midis
         JButton button12 = new JButton("Play a Recording");

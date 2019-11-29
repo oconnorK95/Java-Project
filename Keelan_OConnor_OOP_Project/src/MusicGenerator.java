@@ -258,11 +258,9 @@ public abstract class MusicGenerator implements Serializable {
             }//End else
 
         }//End while
+
+        //The following code saves music to the midi.txt file
         System.out.println("Display save dialog");
-        for (int i = 0; i < 24; i++) {
-            System.out.println(notesPlayed[i]);
-            midiChannelMG.noteOn(notesPlayed[i], 50);
-        }
         //Option dialog to save music
         int yesNo = JOptionPane.showConfirmDialog(null, "Would you like to save this midi?",
                 "Save", JOptionPane.YES_NO_CANCEL_OPTION);
@@ -270,17 +268,18 @@ public abstract class MusicGenerator implements Serializable {
 
             //If yes, create a file to store the midi
             try {
-                FileOutputStream fileOutputStream1 = new FileOutputStream("midi.txt");
-                ObjectOutputStream objectOutputStream1 = new ObjectOutputStream(fileOutputStream1);
                 String fileName = "midi.txt";
+                FileOutputStream fileOutputStream1 = new FileOutputStream(fileName);
+                ObjectOutputStream objectOutputStream1 = new ObjectOutputStream(fileOutputStream1);
 
-                //Overwrite the last midi
+
                 objectOutputStream1.writeObject(notesPlayed);
                 objectOutputStream1.close();
+
                 //Set countNote to zero so the loop can repeat
                 countNote = 0;
 
-                ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(fileName));
+               System.out.println("Music saved");
             }//End Try
             catch (IOException e) {
                 e.printStackTrace();
